@@ -31,6 +31,61 @@ Bibi是一个出口电商服务后端，基于 Flask, MongoDB, Redis, Celery, Ra
 - [x] 后台管理系统
 
 - [x] AWS文件上传
-- [x] Openexchange美元兑人民币汇率API对接
+- [x] Openexchange外币兑换汇率API对接
 - [x] Bing翻译API对接
 - [x] 4PX物流商对接
+
+
+**搭建环境**
+
+本教程基于Ubuntu/Debian，已安装python3 环境的请跳过
+
+```bash
+
+# 安装python3环境
+sudo apt-get update
+sudo apt-get install python3-pip python3-dev
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+
+#安装virtualenv
+sudo pip3 install virtualenv virtualenvwrapper
+echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
+echo "export WORKON_HOME=~/Env" >> ~/.bashrc
+echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+source ~/.bashrc
+
+# 现在你的home目录下有Env的文件夹，你的python虚拟环境都会创建在这里
+
+mkvirtualenv bibi # bibi可随便改成你的项目名
+workon bibi # 现在已进入项目的独立环境
+
+# 安装 mongodb 略
+# 安装 redis 略
+# 安装 rabbitMQ 略
+
+```
+
+安装依赖
+```bash
+pip3 install -r requirements.txt
+```
+
+初始化数据库
+```python
+python3 manage.py shell
+# into Python3 shell
+>>> from application.models import User
+>>> user = User.create(email="xxxx@xxx.com", password="xxx", name="xxxx")
+# email, password, name改成你自己的
+>>> user.roles.append("ADMIN")
+>>> user.save()
+<User: 58d25726266b0451cc136c17>
+
+```
+
+运行
+
+```
+python3 manage.py runserver
+```
+现在可以打开 http://127.0.0.1:5000/
