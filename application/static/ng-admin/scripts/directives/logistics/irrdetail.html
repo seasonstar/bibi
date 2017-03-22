@@ -1,0 +1,60 @@
+<div style="font-weight:normal">
+    <button class="btn btn-sm btn-default" ng-click="showIrrDetail()">处理</button>
+
+    <modal-dialog show='IrrDetailShown' width="500px" dialog-title="异常详细信息" class="form irr-detail">
+        <ul class="list-unstyled">
+            <li>异常件号: {{irr.abnormal_no}}</li>
+            <li>异常状态: {{irr.irr_at_status}}</li>
+            <li>商品信息: {{irr.information}}</li>
+            <li>图片信息: {{irr.images}}</li>
+            <li>处理步骤：
+                <ul>
+                    <li ng-repeat="solution in stepSolutions">
+                        <input type="checkbox"
+                                ng-click="addStep(solution)"
+                                ng-model="stepSelection.steps[solution]" />
+                            {{solution}}
+                    </li>
+                    <li>
+                    <button ng-class="is_done? 'btn-success': 'btn-default'" class="btn btn-sm" ng-click="setDone()">{{is_done ? '已完结' :'设为完结' }}</button>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="chat-panel">
+            <div class="panel-heading">
+                <i class="fa fa-comments fa-fw"></i>
+                异常交流情况
+            </div>
+            <div class="panel-body">
+                <ul class="chat">
+                    <li class="clearfix" ng-repeat="irr_remark in irr.remarks | orderBy: '-created_at.$date'">
+                        <div class="chat-body clearfix">
+                            <div class="chat-header">
+                                <strong ng-class-odd="'pull-right'" class="primary-font">{{irr_remark.creator}}</strong>
+                                <small ng-class-even="'pull-right'" class="text-muted">
+                                    <i class="fa fa-clock-o fa-fw"></i>
+                                    {{irr_remark.created_at.$date|date : 'yyyy-MM-dd HH:mm'}}
+                                </small>
+                            </div>
+                            <p>{{irr_remark.content}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.panel-body -->
+            <div class="panel-footer">
+                <div class="input-group">
+                    <input id="btn-input" type="text" class="form-control input-sm"
+                        ng-model="new_remark" placeholder="Type your message here...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="addIrrRemark(new_remark)">
+                            Send
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <!-- /.panel-footer -->
+        </div>
+    </modal-dialog>
+</div>

@@ -1,0 +1,13 @@
+{% extends 'admin/master2.html' %}
+
+
+{% block body %}
+{{ super() }}
+<form enctype="multipart/form-data" action="{{url_for('customer.upload')}}" class="form" role="form" method="post">
+  <div class="form-group">
+    <input type="file" class="form-control" name="csv">
+  </div>
+  <button type="submit" class="btn btn-default">上传</button>
+</form>
+
+{% endblock %}

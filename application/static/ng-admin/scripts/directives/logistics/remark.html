@@ -1,0 +1,33 @@
+<div class="chat-panel">
+    <div class="panel-body">
+        <ul class="chat">
+            <li class="clearfix" ng-repeat="remark in m.detail.remarks | orderBy: '-created_at.$date'">
+                <div class="chat-body clearfix">
+                    <div class="chat-header">
+                        <strong class="primary-font pull-right">{{remark.creator}}</strong>
+                        <small class="text-muted">
+                            <i class="fa fa-clock-o fa-fw"></i>
+                            {{remark.created_at.$date|date : 'yyyy-MM-dd HH:mm'}}
+                        </small>
+                    </div>
+                    <p>{{remark.content}}</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+                <!-- /.panel-body -->
+    <div class="panel-footer">
+        <div class="input-group">
+            <input id="btn-input" type="text" class="form-control input-sm" ng-model="remark" placeholder="Type your message here...">
+            <span class="input-group-btn">
+                <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="addRemark(remark)">
+                    Send
+                </button>
+                <button class="btn btn-danger btn-sm" id="btn-chat" ng-click="addRemark('已查')">
+                    已查
+                </button>
+            </span>
+        </div>
+    </div>
+    <!-- /.panel-footer -->
+</div>

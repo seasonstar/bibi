@@ -1,0 +1,88 @@
+{% import 'admin/order/order.html' as order_macro %}
+{% import 'macros/pagination.html' as paginate_macro with context -%}
+{% extends 'admin/master2.html' %}
+
+{% block head_css %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/timeline.css') }}">
+    <style>
+      .col-md-4 {width: 22%;}
+      .entry {border: 1px solid #ddd; border-radius:5px; margin:10px}
+      .entry.selected {border: 2px solid #5cb85c ;}
+    </style>
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+<div class="row">
+  <div class="col-lg-12">
+    <section class="search">
+      <form method="GET" class="form-inline" action="{{url_for('orderview.search')}}">
+        <input type="search" name="name" class="form-control" style="width: 350px;padding:10px;height:35px;margin: 3px;" placeholder="{{ _('Short ID or Long ID or Contact Name') }}" />
+        <input type="submit" name="submit" value="Search It" class="btn btn-primary submit" />
+        <a class="btn btn-warning" href="javascript:$('.panel-heading').click()">{{ _('SHOW ALL') }}</a>
+      </form>
+    </section>
+  </div><!--COL-lg -12 -->
+</div><!-- ROW -->
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="tabbable"> <!-- Only required for left/right tabs -->
+      {% if tab %}
+      <ul class="nav nav-tabs">
+        <li {% if tab=='all' %}class="active"{% endif %}><a href="{{url_for('orderview.index', tab='all')}}">PAID</a></li>
+        <li {% if tab=='unpaid' %}class="active"{% endif %}><a href="{{url_for('orderview.index', tab='unpaid')}}">UNPAID</a></li>
+        <li {% if tab=='transfer' %}class="active"{% endif %}><a href="{{url_for('orderview.index', tab='transfer')}}">转运订单</a></li>
+        <li {% if tab=='payment_abnormal' %}class="active"{% endif %}><a href="{{url_for('orderview.index', tab='payment_abnormal')}}">PAYMENT_ABNORMAL</a></li>
+        <li {% if tab=='test' %}class="active"{% endif %}><a href="{{url_for('orderview.index', tab='test')}}">TESTER</a></li>
+        <li {% if tab=='irregularity' %}class="active"{% endif %}><a href="{{url_for('orderview.index', tab='irregularity')}}">IRREGULARITY</a></li>
+      </ul>
+      {% endif %}
+      <div class="tab-content">
+        <div class="row">
+          {% for order in orders.slice %}
+          <div class="col-lg-12">
+              {{order_macro.order_template(order, customer_admin)}}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-lg-12">
+          {% if section == 'orders' %}
+              {{ paginate_macro.pagination(orders) }}
+          {% else %}
+              <ul class=pagination>
+              {% if orders.has_prev %}
+                <li><a href="{{ url_for('orderview.search', page=orders.page - 1, name=name)
+                  }}">«</a></li>
+              {% endif %}
+              {%- for page in orders.iter_pages() %}
+                {% if page %}
+                  {% if page != orders.page %}
+                    <li><a href="{{ url_for('orderview.search', page=page, name=name)
+                  }}">{{ page }}</a></li>
+                  {% else %}
+                    <li><a style="color:grey" href="#">{{ page }}</a></li>
+                  {% endif %}
+                {% else %}
+                  <li class=ellipsis>…</li>
+                {% endif %}
+              {%- endfor %}
+              {% if orders.has_next %}
+                <li><a href="{{ url_for('orderview.search', page=orders.page + 1, name=name)
+                  }}">»</a></li>
+              {% endif %}
+              </ul>
+          {% endif %}
+      </div>
+    </div><!-- TABBABLE -->
+  </div><!-- COL-LG-12 -->
+</div><!-- ROW -->
+{% endblock body %}
+
+{% block tail_js %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/libs/require-jquery.js') }}" data-main="{{ url_for('static', filename='js/orders_section.js') }}"></script>
+
+{% endblock %}

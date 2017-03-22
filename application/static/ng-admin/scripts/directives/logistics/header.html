@@ -1,0 +1,63 @@
+<div data-mid="{{m.id}}">
+    <div class="panel mallOrder-heading panel-heading title"
+        ng-class="m.detail.irregular_details.length > 0 ? 'irregular' :''">
+
+      <input type="checkbox" class="pull-left" ng-model="m.checked">
+      <div class="pull-left" style="width:840px" ng-click="toggle()">
+          <span class="badge time-progress">{{now_diff_date}}/{{diff_date}}</span>
+          <label class="time">{{m.curr_date}}</label>
+
+          {{m.detail.channel}}
+          <label class="us-tracking-no">CTN:
+              <span>{{m.detail.cn_tracking_no}}</span>
+          </label>
+          <label class="user">{{m.address.receiver}}
+              <span>({{m.order_id}})</span>
+          </label>
+          <label class="status"><span style="color:blue">[{{m.entriesNum}}]</span> {{m.detail.status}}</label>
+          <label class="irregular-reason" ng-repeat="irregular_detail in m.detail.irregular_details|limitTo:1">{{IrrTypeNames[irregular_detail.irr_type]}}</label>
+      </div>
+      <a class="pull-left btn btn-sm btn-success edit" ng-click='toggleModal()'>EDIT</a>
+      <label class="pull-left delay-reason" ng-repeat="delay_detail in m.detail.delay_details|filter:status|limitTo:1">{{delay_detail.reason}} </label>
+      <a class="pull-right print"
+          ng-href="/admin/n/logs/print/{{m.id}}">print</a>
+    </div>
+    <modal-dialog show='modalShown' width="400px" dialog-title='Edit Logistic Info' on-close='logClose()' class="form">
+        <div class="form-group">
+          <label for='cn_tracking_no'>cn tracking no:</label>
+          <input class="form-control" type='text' ng-model='m.detail.cn_tracking_no' />
+        </div>
+        <div class="form-group">
+          <label for='cn_logistic_name'>cn logistic name:</label>
+          <select class="form-control" type='text' ng-model='m.detail.cn_logistic_name' ng-options="ctn for ctn in ['usps', 'ems', 'ups', 'dhl']"></select>
+        </div>
+        <div class="form-group">
+          <label for='extra'>extra:</label>
+          <input class="form-control" type='text' ng-model='m.detail.extra' />
+        </div>
+        <div class="form-group">
+          <label for='status'>status:</label>
+          <select class="form-control" type='text' ng-model='m.detail.status' ng-options="st for st in ['PENDING_REVIEW', 'TRANSFER_APPROVED', 'WAREHOUSE_IN', 'PAYMENT_RECEIVED','PROCESSING', 'SHIPPING', 'PORT_ARRIVED', 'RECEIVED', 'RETURNED']"></select>
+        </div>
+        <div class="form-group">
+          <label for='partner'>partner:</label>
+          <select class="form-control" type='text' ng-model='m.detail.partner' ng-options="p for p in availablePartner"></select>
+        </div>
+        <div class="form-group">
+          <label for='channel'>channel:</label>
+          <select class="form-control" type='text' ng-model='m.detail.channel' ng-options="c for c in CHANNELS[m.detail.partner]"></select>
+        </div>
+        <div class="form-group">
+          <label for='route'>route:</label>
+          <select class="form-control" type='text' ng-model='m.detail.route' ng-options="r for r in ['DEFAULT','TRANSFER']"></select>
+        </div>
+        <div class="form-group">
+          <label for='real_weight'>real_weight:</label>
+          <input class="form-control" type='text' ng-model='m.detail.real_weight' />
+        </div>
+          <button class="btn btn-md btn-success" ng-click="saveForm()">Save</button>
+        </p>
+
+    </modal-dialog>
+    <logistics-body ng-show="m.expand"></logistics-body>
+</div>

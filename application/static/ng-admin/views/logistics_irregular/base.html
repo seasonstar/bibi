@@ -1,0 +1,42 @@
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Logistics Irregular <small ui-view="hint"></small></h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12 delay-bar">
+            <div class="col-md-1 status" ui-sref-active="current" ui-sref="dashboard.logistics_irregular.list({process_status:'WAITING_PROCESS'})">
+              <span class="big-number">{{sums.WAITING_PROCESS}}</span>
+              <br>
+              <span>未处理</span>
+            </div>
+            <div class="col-md-1 status" ui-sref-active="current" ui-sref="dashboard.logistics_irregular.list({process_status:'PROCESSING'})">
+              <span class="big-number">{{sums.PROCESSING}}</span>
+              <br>
+              <span>处理中</pan>
+            </div>
+            <div class="col-md-1 status" ui-sref-active="current" ui-sref="dashboard.logistics_irregular.list({process_status:'PROCESSED'})">
+              <span class="big-number">{{sums.PROCESSED}}</span>
+              <br>
+              <span>已完成</span>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-12 irr-bar">
+            <div class="status" ng-class="{current: curr_type == 'OTHER'}" ng-click="setType('OTHER')">
+                <span>其他</span>
+            </div>
+        </div>
+    </div>
+    <nit-advanced-searchbox style="height:80px;" ng-model="searchParams" parameters="availableSearchParams" placeholder="Search...">
+    </nit-advanced-searchbox>
+    <hr />
+
+    <div ui-view></div>
+
+</div>

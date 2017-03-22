@@ -1,0 +1,27 @@
+<div class="paginate-anything">
+  <ul class="pagination pagination-{{size}} links" ng-if="numPages > 1">
+    <li ng-class="{disabled: page <= 0}"><a href ng-click="gotoPage(page-1)">&laquo;</a></li>
+
+    <li ng-if="linkGroupFirst() > 0"><a href ng-click="gotoPage(0)">1</a></li>
+    <li ng-if="linkGroupFirst() > 1" class="disabled"><a href>&hellip;</a></li>
+
+    <li
+      ng-repeat=
+        "p in [linkGroupFirst(), linkGroupLast()] | makeRange"
+      ng-class="{active: p === page}"
+    >
+      <a href ng-click="gotoPage(p)">{{p+1}}</a>
+    </li>
+
+    <li ng-if="linkGroupLast() < numPages - 2" class="disabled"><a href>&hellip;</a></li>
+    <li ng-if="isFinite() && linkGroupLast() < numPages - 1"><a href ng-click="gotoPage(numPages-1)">{{numPages}}</a></li>
+
+    <li ng-class="{disabled: page >= numPages - 1}"><a href ng-click="gotoPage(page+1)">&raquo;</a></li>
+  </ul>
+  <div class="per-page" ng-if="perPagePresets.length > 0 && numPages > 1">
+    <select ng-model="$parent.perPage"
+            ng-options="p for p in perPagePresets">
+    </select>
+    per page
+  </div>
+</div>

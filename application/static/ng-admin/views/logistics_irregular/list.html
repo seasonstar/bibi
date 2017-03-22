@@ -1,0 +1,13 @@
+<div>
+
+    <section ng-repeat="m in results"
+        class="panel folder on panel-default mallOrder">
+        <logistics-header></logistics-header>
+    </section>
+
+    <bgf-pagination collection="results"
+        per-page="25"
+        url-params="searchParams"
+        url="'/admin/n/logistics_irregular/'+ process_status+ '/' +curr_type">
+    </bgf-pagination>
+</div>

@@ -1,0 +1,22 @@
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav in" id="side-menu">
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+            </li>
+            <li ui-sref-active="active" ng-show="permit('LOGISTIC')">
+                <a ui-sref="dashboard.logistics"><i class="fa fa-plane fa-fw"></i> 物流列表</a>
+            </li>
+            <li ui-sref-active="active" ng-show="permit('LOGISTIC')">
+                <a ui-sref="dashboard.logistics_delay.list"><i class="fa fa-space-shuttle fa-fw"></i> 延缓包裹</a>
+            </li>
+            <li ui-sref-active="active" ng-show="permit('LOGISTIC')">
+                <a ui-sref="dashboard.logistics_irregular"><i class="fa fa-fighter-jet fa-fw"></i> 异常包裹</a>
+            </li>
+            <li ui-sref-active="active" ng-show="permit('CONTENT')">
+                <a ui-sref="dashboard.item"><i class="fa fa-gift fa-fw"></i> 商品管理</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>

@@ -1,0 +1,63 @@
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Logistics Delay <small ui-view="hint"></small></h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12 delay-bar">
+            <div class="col-md-1 status" ui-sref-active="current" ui-sref="dashboard.logistics_delay.list({status:'PAYMENT_RECEIVED'})">
+                <span class="big-number">{{sums.PAYMENT_RECEIVED}}</span>
+              <br>
+              <span>下单</span>
+            </div>
+
+            <div class="col-md-1 status" ui-sref-active="current" ui-sref="dashboard.logistics_delay.list({status:'PROCESSING'})">
+              <span class="big-number">{{sums.PROCESSING}}</span>
+              <br>
+              <span>处理中</span>
+            </div>
+
+            <div class="col-md-1 status" ui-sref-active="current" ui-sref="dashboard.logistics_delay.list({status:'SHIPPING'})">
+              <span class="big-number">{{sums.SHIPPING}}</span>
+              <br>
+              <span>发货</span>
+            </div>
+
+            <div class="col-md-1 status" ui-sref-active="current" ui-sref="dashboard.logistics_delay.list({status:'PORT_ARRIVED'})">
+              <span class="big-number">{{sums.PORT_ARRIVED}}</span>
+              <br>
+              <span>航班到港</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 irr-bar">
+            <div class="status" ng-class="{current: curr_delay_type == type}" ng-click="delayFilter(type)" ng-repeat="type in DelayTypeList[delayStatus]">
+                <span>{{type}}</span>
+            </div>
+        </div>
+    </div>
+
+    <nit-advanced-searchbox ng-model="tempParams" style="height:80px;"
+    parameters="availableSearchParams" placeholder="Search...">
+    </nit-advanced-searchbox>
+    <hr />
+    <form action="/admin/logisticview/file/upload" class="form-inline" method="post"  enctype="multipart/form-data">
+      <div class="form-group">
+        <input type="file" class="form-control" name="file">
+        <input type="submit" class="btn btn-success" value="Upload">
+      </div>
+      <a class="btn btn-success" href="/admin/n/download?status={{delayStatus}}&delay_type={{curr_delay_type}}&delay_export=true">Export as csv</a>
+      <button class="btn btn-primary" ng-click="setParams($event)">搜索</button>
+      <button class="btn btn-default" ng-click="reset();$event.preventDefault();">Reset</button>
+    </form>
+    <hr />
+    <div class="row">
+        <div ui-view></div>
+    </div>
+
+</div>

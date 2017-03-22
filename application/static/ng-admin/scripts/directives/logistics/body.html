@@ -1,0 +1,273 @@
+<div class="panel-body">
+  <div ng-show="m.is_closed" style="background-color:rgb(243, 129, 92);text-align:center">
+    <strong>{{m.close_reason}}</strong>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <div class="order-badge">
+          <span style="margin: 10px 20px">订单信息</span>
+      </div>
+      <ul class="timeline">
+        <li class="timeline-inverted">
+          <div class="timeline-badge info"></div>
+          <strong>ID信息</strong><br>
+          <span>Order ID: <a class="request-button" target="_blank" href="/admin/orderview/search?name={{m.order_id}}">{{m.order_id}}</a></span><br />
+          <span>Logistic ID: {{m.id}}</span><br>
+          <span>partner No.: {{m.detail.partner_tracking_no}}</span><br />
+        </li>
+
+        <li class="timeline-inverted">
+        <div class="timeline-badge info"></div>
+          <strong>联系方式</strong><br />
+          <span>{{m.address.receiver}}, {{m.address.mobile_number}}</span><br />
+          <strong>收件地址</strong><br>
+          <span>{{m.address.street1}}</span><br />
+          <span>{{m.address.street2}}</span><br />
+          <span>{{m.address.city}}, {{m.address.state}}, </span><br />
+          <span>{{m.address.country}}, {{m.address.postcode}}</span><br />
+        </li>
+
+        <li class="timeline-inverted">
+        <div class="timeline-badge info"></div>
+          <strong>下单时间</strong><br />
+          <span>{{m.created_at.$date|date : 'yyyy-MM-dd HH:mm' }}</span><br />
+        </li>
+      </ul>
+    </div><!-- COL-MD-4 -->
+
+
+    <div class="col-md-4">
+      <div class="order-badge">
+          <span style="background-color: #5cb85c; margin: 10px 20px">国际物流信息</span>
+      </div>
+      <ul class="timeline">
+        <li class="timeline-inverted" style>
+        <div class="timeline-badge info"></div>
+          <strong>国际物流提供商</strong><br>
+          <label class="logistic">
+            <span class="value">{{m.detail.partner}}</span>
+          </label><br />
+          <i>extra: {{m.detail.extra}}</i><br />
+          <span>用户选择物流: {{m.logistic_provider}}</span><br />
+          <span>渠道类型: {{m.detail.channel}}</span><br />
+        </li>
+        <li class="timeline-inverted">
+
+        <div class="timeline-badge info"></div>
+          <span>物流商: {{m.detail.cn_logistic_name}}</span><br />
+          <span>运单号: {{m.detail.cn_tracking_no}}</span><br />
+          <div class="pull-right">
+            <span>
+              <a class="request-button" ng-click="retrieveTracking()">重获物流信息</a>
+            </span>
+          </div>
+          <a class="logs-button btn btn-primary btn-xs" ng-click="openTracking()">物流详情</a><br>
+          <div ng-show="trackingShown" class="dialog" style="left:-200px">
+              <div ng-bind-html="tracking_history"></div>
+              <button class="btn btn-xs btn-info" ng-click="closeTracking()">Close</button>
+          </div>
+
+        </li>
+
+        <li class="timeline-inverted">
+        <div class="timeline-badge info"></div>
+          <strong>估重净重</strong><br />
+          <span>{{m.estimated_weight}}</span><br />
+        </li>
+
+        <li class="timeline-inverted">
+        <div class="timeline-badge info"></div>
+          <strong>运输时间</strong><br />
+          <span>{{ m.detail.shipping_date.$date|date : 'yyyy-MM-dd HH:mm' }}</span><br />
+        </li>
+      </ul>
+    </div><!-- COL-MD-4 -->
+
+    <div class="col-md-4">
+      <div class="order-badge">
+          <span style="background: #9966CC; margin: 0px 20px">额外信息</span>
+      </div>
+      <ul class="timeline">
+        <li class="timeline-inverted">
+        <div class="timeline-badge info"></div>
+          <strong>最近操作</strong><br>
+          <div class="pull-right">
+              <div ng-show="operationShown" class="dialog" style="left:-200px">
+                  <div ng-bind-html="operation_history"></div>
+                  <button class="btn btn-xs btn-info" ng-click="closeOperation()">Close</button>
+              </div>
+              <a class="btn btn-irregular btn-xs" ng-click="toggleIrrForm()">标记异常</a><br>
+              <a class="btn btn-warning btn-xs" ng-click="toggleDelayForm(m.detail.status)">标记延缓</a><br>
+              <a class="logs-button btn btn-primary btn-xs" ng-click="openOperation()">操作记录</a><br>
+              <div class="btn-group pull-right logistic-actions">
+                <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
+                    操作<i class="fa fa-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu slidedown">
+                    <li><a ng-click="moveTo('PROCESSING')" href="">移到PROCESSING</a></li>
+                    <li><a ng-click="moveTo('SHIPPING')" href="">移到SHIPPING</a></li>
+                    <li><a ng-click="moveTo('PORT_ARRIVED')" href="">移到PORT_ARRIVED</a></li>
+                    <li><a ng-click="moveTo('RECEIVED')" href="">移到RECEIVED</a></li>
+                    <li><a ng-click="closeLogistic()">关闭包裹</a></li>
+                </ul>
+              </div>
+          </div>
+          <span class="operator">操作人: {{m.detail.modified_by}}</span><br />
+          <span class="modified">操作时间: {{m.detail.modified.$date|date : 'yyyy-MM-dd HH:mm'}}</span><br />
+        </li>
+
+        <li class="timeline-inverted">
+        <div class="timeline-badge info"></div>
+          <strong>备注框</strong><br />
+          <remark></remark>
+
+        </li>
+
+      </ul>
+    </div><!-- COL-MD-4 -->
+  </div><!--col-md-12-->
+
+  <div class="col-md-12">
+      <div class="entries row selectable" ng-repeat="e in m.entries">
+          <div class="imgs col-lg-6">
+              <img ng-src="{{img}}" ng-repeat="img in e.spec.images |limitTo:3" width="100px" height="100px">
+          </div>
+          <div class="col-lg-3">
+            <ul class="meta">
+                <li><input name="entry" type="checkbox" value="{{e.id}}:{{m.id}}">
+                <li><strong>{{e.item.title}}</strong></li>
+                <li><strong>{{e.item.title_en}}</strong></li>
+                <li><code>brand: {{e.item.brand}}</code></li>
+                <li><code>quantity: {{e.quantity}}</code>
+                    <input ng-model="quantity" type="text" style="width:20px">
+                    <button class="btn btn-xs btn-danger" ng-click="splitQuantity(quantity, e.id)">拆分</button>
+                </li>
+                <li>amount: {{e.amount_usd}}</li>
+                <li>weight: {{e.item.weight}}</li>
+                <li>shipping_info: {{e.shipping_info}}</li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3">
+            <ul class="ul-horizontal">
+                <li>item_id: {{e.item.id}}</li>
+                <li>sku: {{e.spec.sku}}</li>
+                attributes:
+                <li ng-repeat="(key, val) in e.spec.attributes">
+                    <code>{{key}}: {{val}}</code>
+                </li>
+            </ul>
+          </div>
+
+      </div>
+      <p ng-show="m.returned_entries != []">
+          Returned Entries:
+      <p>
+      <div class="entries row selectable" ng-repeat="e in m.returned_entries">
+          <div class="imgs col-lg-6">
+              <img ng-src="{{img}}" ng-repeat="img in e.spec.images |limitTo:3" width="100px" height="100px">
+          </div>
+          <div class="col-lg-3">
+            <ul class="meta">
+                <li><input name="entry" type="checkbox" value="{{e.id}}:{{m.id}}">
+                <li><strong>{{e.item.title}}</strong></li>
+                <li><strong>{{e.item.title_en}}</strong></li>
+                <li><code>brand: {{e.item.brand}}</code></li>
+                <li><code>quantity: {{e.quantity}}</code>
+                    <input ng-model="quantity" type="text" style="width:20px">
+                    <button class="btn btn-xs btn-danger" ng-click="splitQuantity(quantity, e.id)">拆分</button>
+                </li>
+                <li>amount: {{e.amount_usd}}</li>
+                <li>weight: {{e.item.weight}}</li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3">
+            <ul class="ul-horizontal">
+                <li>item_id: {{e.item.id}}</li>
+                <li>sku: {{e.spec.sku}}</li>
+                attributes:
+                <li ng-repeat="(key, val) in e.spec.attributes">
+                    <code>{{key}}: {{val}}</code>
+                </li>
+            </ul>
+          </div>
+      </div>
+  </div>
+
+    <modal-dialog show='irrFormShown' width="800px" dialog-title="Create Irregular Form" class="form">
+        <div class="form-group">
+          <label for='irregular_type'>异常分类:</label>
+          <select class="form-control" type='text' ng-model='selectedIrr' ng-options="k as v for (k,v) in IrrTypeNames"></select>
+        </div>
+        <div class="form-group">
+          <label for='irregular_reason'>问题原因:</label>
+          <select class="form-control" type='text' ng-model='selectedIrrReason' ng-options="reason for reason in IrrTypeList[selectedIrr]"></select>
+        </div>
+        <div class="form-group">
+          <label for='desc'>具体描述:</label>
+          <input class="form-control" type='text' ng-model='irrDesc' />
+        </div>
+        <p>
+          <button class="btn btn-md btn-success" ng-click="saveIrrForm(selectedIrr, selectedIrrReason, irrDesc)">Save</button>
+        </p>
+        <table class="table">
+            <caption>异常情况:</caption>
+            <thead>
+                <tr>
+                    <th>异常类型</th>
+                    <th>问题原因</th>
+                    <th>处理情况</th>
+                    <th>具体描述</th>
+                    <th>创建人</th>
+                    <th>时间</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="irr in m.detail.irregular_details">
+                    <th>{{IrrTypeNames[irr.irr_type]}}</th>
+                    <th>{{irr.reason}}</th>
+                    <th>{{ProcessStatusNames[irr.process_status]}}</th>
+                    <th>{{irr.desc}}</th>
+                    <th>{{irr.creator}}</th>
+                    <th>{{irr.created_at.$date | date : 'yyyy-MM-dd HH:mm'}}</th>
+                    <th><irr-detail></irr-detail></th>
+                <tr>
+            </tbody>
+        </table>
+    </modal-dialog>
+    <modal-dialog show='delayFormShown' width="600px" dialog-title="Create Delay Form" class="form">
+        <div class="form-group">
+          <label for='us_tracking_no'>延缓原因:</label>
+          <select class="form-control" type='text' ng-model='selectedItem' ng-options="type for type in delayTypes"></select>
+        </div>
+        <p>
+          <button class="btn btn-md btn-success" ng-click="saveDelayForm(selectedItem)">Save</button>
+        </p>
+        <table class="table">
+            <caption>历史延缓:</caption>
+            <thead>
+                <tr>
+                    <th>状态</th>
+                    <th>延缓类型</th>
+                    <th>已处理</th>
+                    <th>操作人</th>
+                    <th>时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="delay in m.detail.delay_details">
+                    <th>{{delay.status}}</th>
+                    <th>{{delay.reason}}</th>
+                    <th>    <input type="checkbox"
+                                ng-click="checkDelay(delay)"
+                                ng-model="delay.is_done" />
+                    </th>
+                    <th>{{delay.creator}}</th>
+                    <th>{{ delay.created_at.$date | date : 'yyyy-MM-dd HH:mm'}}</th>
+                <tr>
+            </tbody>
+        </table>
+    </modal-dialog>
+</div><!-- PANEL-BODY-->

@@ -1,0 +1,8 @@
+/* TEAM */
+  Programmer: Maybi Tech Team
+  Site: http://maybi.com
+
+/* SITE */
+  Standards: HTML5, CSS3
+  Components: Flask, Angular
+  Software:

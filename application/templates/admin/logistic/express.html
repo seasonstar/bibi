@@ -1,0 +1,25 @@
+<div class="logistic_detail">
+  <h5>物流信息</h5>
+    {% for k in logs %}
+      {% set v = logs.__getattribute__(k) %}
+      {% if k != 'data' and k == 'state'%}
+      <label>{{k}}: </label>{{v}}
+      {% elif k=='data' %}
+      <table>
+        <tr>
+          {% for n in ['status', 'context', 'time'] %}
+            <th>{{n}}</th>
+          {% endfor %}
+        </tr>
+        {% for logs in v %}
+        <tr>
+          {% for n in ['status', 'context', 'time'] %}
+            <td>{{logs[n]}}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+    {% endfor %}
+</div>
+<button class="cancel btn btn-xs btn-info">Close</button>

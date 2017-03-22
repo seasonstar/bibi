@@ -1,0 +1,94 @@
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Item <small>{{ '-> '+ curr_cate}}</small></h1>
+        </div>
+        <div class="">
+            <div class="filter">
+                <div class="cate-box" ng-repeat="main_cate in categories">
+                    <div class="tabs">
+                        <span class="cate-head tab available">
+                            {{main_cate.cn || main_cate.en }}
+                        </span>
+                        <span class="tab available" ng-class="{on: cate.en == curr_cate && main_cate.en == curr_main_cate}"
+                            ng-repeat="cate in main_cate.sub_list">
+                            <a ng-click="setCate(main_cate.en, cate.en)">{{cate.cn || cate.en}}</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group search-box">
+                <label>item_id: </label>
+                <input class="form-control" ng-model="tempQuery">
+                <label>creator: </label>
+                <input class="form-control" ng-model="tempExtra">
+                <button class="btn btn-primary" ng-click="setParams()">搜索</button>
+                <button class="btn btn-default" ng-click="reset()">Reset</button>
+            </div>
+            <div class="form-group search-box">
+                <label>all: </label>
+                <input type="radio" ng-model="searchParams.availability" value="">
+                <label>上架: </label>
+                <input type="radio" ng-model="searchParams.availability" value=true>
+                <label>下架: </label>
+                <input type="radio" ng-model="searchParams.availability" value=false>
+                <a class="btn btn-success" ng-click="toggleAll()">Toggle All</a>
+                <a class="btn btn-success" ng-click="toggleModal()">创建商品</a>
+            </div>
+            <modal-dialog show='modalShown' width="400px" dialog-title='Create new Item' on-close='logClose()' class="form">
+                <div class="form-group">
+                  <label for='primary_img'>原链接:</label>
+                  <input class="form-control" type='url' ng-model='newItem.url' />
+                </div>
+                <div class="form-group">
+                  <label for='primary_img'>商品首图:</label>
+                  <input class="form-control" type='url' ng-model='newItem.primary_img' />
+                </div>
+                <div class="form-group">
+                  <label for='title'>商品标题:</label>
+                  <input class="form-control" type='text' ng-model='newItem.title' />
+                </div>
+                <div class="form-group">
+                  <label for='weight'>重量:</label>
+                  <input class="form-control" type='number' ng-model='newItem.weight' />
+                </div>
+                <div class="form-group">
+                  <label for='china_price'>采购价￥:</label>
+                  <input class="form-control china_price" type='number' placeholder="商品价" ng-model='newItem.china_price' />+
+                  <input class="form-control china_price" type='number' placeholder="邮费" ng-model='newItem.express_price' />
+                </div>
+                <div class="form-group">
+                  <label for='attributes'>属性:</label>
+                  <b class="" ng-repeat="attr in ['color', 'size', 'style']">
+                      <input type="checkbox" checklist-model="newItem.attributes" checklist-value="attr"> {{attr}}
+                  </b>
+                </div>
+                <div class="form-group">
+                  <label for='description'>详细信息:</label>
+                  <textarea class="form-control" ng-model='newItem.description'></textarea>
+                </div>
+                <button class="btn btn-md btn-success" ng-click="createItem()">Save</button>
+                </p>
+
+            </modal-dialog>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="">
+            <section ng-repeat="item in results"
+                class="panel folder on panel-default mallOrder">
+                <item-box></item-box>
+            </section>
+
+
+            <bgf-pagination collection="results"
+                per-page="25"
+                reload-page="reloadPage"
+                url-params="searchParams"
+                url="'/admin/i/items'">
+            </bgf-pagination>
+        </div>
+    </div>
+</div>

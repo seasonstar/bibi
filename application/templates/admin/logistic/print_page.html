@@ -1,0 +1,73 @@
+<html lang="zh-CN">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/print.css') }}" />
+    </head>
+<body>
+<div class="a4">
+  <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+
+  {% set order = lo.order%}
+  <div class="order-id">
+    <span>订单号：{{ order.sid }}</span>
+    <span>&nbsp&nbsp下单时间：{{ order.created_at | format_date }}</span>
+  </div>
+
+  <div class="items">
+    <div class="bar">
+      <span class="item-id">编号</span>
+      <span class="item-title">商品名称</span>
+      <span class="item-attr">商品属性</span>
+      <span class="item-price">单价($)</span>
+      <span class="item-num">数量</span>
+      <span class="item-total">总价($)</span>
+    </div>
+    <div class="padding">
+    {% for entry in order.entries %}
+      {% if entry in lo.entries%}
+        <div class="item">
+          <span class="item-id">{{ entry.item_spec_snapshot.sku }}</span>
+          <span class="item-title">{{ entry.item_snapshot.title }}</span>
+          <span class="item-attr">{{ entry.item_spec_snapshot.attributes['color'] }}, {{ entry.item_spec_snapshot.attributes['size'] }} </span>
+          <span class="item-price">{{ entry.unit_price }}</span>
+          <span class="item-num">{{ entry.quantity }}</span>
+          <span class="item-total">{{ entry.amount_usd }}</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  </div>
+
+  {% set address = order.address %}
+  <div class="order-info">
+    <div class="bar">订单信息</div>
+    <div class="padding">
+      <div>收货人：{{ address.receiver }}</div>
+      <div>地址：{{address.street1}}, <br>
+          {{ address.street2 }},{{ address.city }},{{ address.state}}</br>
+          <span class="street">{{ address.country}},{{ address.postcode }}</span>
+      </div>
+    </div>
+    <div class="bar">物流信息</span></div>
+    <div class="padding">
+      <div>单号 {{ lo.detail.cn_tracking_no}}</div>
+    </div>
+  </div>
+
+  <div class="result">
+    <div class="bar">结算（￥）</div>
+    <div class="padding">
+      <div>商品总价<span>{{ order.amount_usd }}</span></div>
+      <div>国际运费<span>{{ order.cn_shipping }}</span></div>
+      <div>使用折扣<span>-{{ order.discount|sum(attribute='value') }}</span></div>
+    </div>
+      <div class="final">总计<span>{{ order.final }}</span></div>
+  </div>
+
+  <div class="bottom">
+    <img class="code" src="{{ url_for('static', filename='img/qrcode.jpg') }}" alt="">
+    <p>关注“美比Maybi”公众号</p>
+    <p>获取更多服务信息，随时随地查物流！</p>
+  </div>
+</div>
+</body>
+</html>

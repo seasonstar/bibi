@@ -1,0 +1,51 @@
+* {
+    font-family: STHeiti,arial,sans-serif;
+
+}
+.a4{font-size:0.9em;position:relative;margin:auto;padding:10mm 0mm 5mm 0mm;background:#fff;width:210mm;min-height:280mm;max-height:280mm;text-align:center;}
+.a4 div{padding:5px 0}
+.a4 .this-pack{
+  display:inline-block;
+  color:black;
+  font-weight: bold;
+  border: 1px solid black;
+  font-size:1.0em;
+  padding: 2px;
+  margin:0 5px;
+  vertical-align:middle!important;
+  margin-top:-2px;
+}
+.a4 .other-pack{
+  display:inline-block;
+  color: #b9b9b9;
+  font-weight: bold;
+  border: 1px solid #b9b9b9;
+  font-size:1.0em;
+  padding: 2px;
+  margin:0 5px;
+  vertical-align:middle!important;
+  margin-top:-2px;
+}
+.a4 .comment{text-align:left;color:#b9b9b9}
+.a4 .logo{height:31mm}
+.a4 .order-id{height:16mm;line-height:16mm}
+.a4 .bar{width:100%;border-top:3px solid #000;border-bottom:1px solid #000}
+.a4 .items{width:100%;text-align:left;margin-bottom:10mm;}
+.a4 .items span{display:inline-block;vertical-align:top;padding:0 5px}
+.a4 .items .item{width:100%}
+.a4 .items .item.other{color: #b9b9b9}
+.a4 .items .item-id{width:19mm}
+.a4 .items .item-title{width:59mm}
+.a4 .items .item-attr{width:30mm}
+.a4 .items .item-source{width:35mm}
+.a4 .items .item-price{width:17mm}
+.a4 .items .item-num{width:8mm}
+.a4 .items .item-total{width:17mm}
+.a4 .order-info{float:left;width:140mm;text-align:left;}
+.a4 .order-info span.street{margin-left:38px}
+.a4 .result{float:right;width:50mm;text-align:left;}
+.a4 .result .final{border-top:1px solid #000}
+.a4 .result span{float:right}
+.a4 .bottom{font-size:.7em;width:100%;position:absolute;bottom:10px;left:0;}
+.a4 .bottom img{width:100px}
+.a4 .padding{padding:15px 0}

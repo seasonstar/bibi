@@ -1,0 +1,61 @@
+{%- macro entry_template(entry, l, order) -%}
+    {% set spec = entry.item_spec_snapshot %}
+    {% if spec and spec.item %}
+    <div class="order-entry" id="{{entry.id}}">
+        <div class="col-md-3">
+            <a href="{{spec.item.url}}" target="_blank">
+                <img src="{{spec.images[0] if spec.images else spec.item.primary_img}}" class="board-img img-thumbnail" id="{{spec.item.item_id}}">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <dl class="dl-horizontal">
+              <dt>Item ID</dt>
+              <dd>{{spec.item.item_id or 'DEFAULT'}}</dd>
+              <dt>Title</dt>
+              <dd>{{spec.item.title or ''}}</dd>
+              {% for attr, val in spec.attributes.items() %}
+                <dt>{{attr.capitalize() or ''}}</dt>
+                <dd>{{'default' if not val else val}}</dd>
+              {% endfor %}
+              <dt>remark</dt>
+              <dd>{{entry.remark}}</dd>
+            </dl>
+        </div><! -- COL-MD-3 -->
+
+        <div class="col-md-3">
+            <dl class="dl-horizontal">
+              <dt>Weight</dt>
+              <dd>{{spec.item.weight or ''}}</dd>
+              <dt>Price</dt>
+              {% if order.order_type == "TRANSFER" %}
+              <dd>{{spec.item.china_price or ''}}</dd>
+              {% else %}
+              <dd>{{entry.amount_usd or ''}}</dd>
+              {% endif %}
+              <dt>Quantity</dt>
+              <dd>{{entry.quantity or ''}}</dd>
+              {% if hasattr(entry.item_snapshot, 'information') %}
+              <dt>Information</dt>
+              <dd>
+                  {% for i in entry.item_snapshot.information %}
+                      {{i}}<br>
+                  {% endfor %}
+              </dd>
+              {% endif %}
+            </dl>
+        </div><! -- COL-MD-3 -->
+
+        <div class="col-md-3">
+            <dl class="dl-horizontal">
+              <dt>Brand</dt>
+              <dd>{{spec.item.brand or ''}}</dd>
+              <dt>SKU</dt>
+              <dd>{{spec.sku or 'DEFAULT'}}</dd>
+              <dt>Status</dt>
+              <dd>{{spec.item.status or ''}}</dd>
+            </dl>
+        </div><! -- COL-MD-3 -->
+    </div><!-- ORDER Entry -->
+
+    {% endif %}
+{%- endmacro -%}

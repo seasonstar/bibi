@@ -1,0 +1,22 @@
+{% extends 'admin/master2.html' %}
+
+
+{% block body %}
+{{ super() }}
+<form enctype="multipart/form-data" action="{{url_for('createuserview.index')}}" class="form" role="form" method="post">
+  <div class="form-group">
+      <input type="text" class="form-control" id="name" name="name" placeholder="{{ _('User Name') }}">
+  </div>
+  <div class="form-group">
+    <input type="file" class="form-control" id="avatar" name="avatar">
+  </div>
+  <div class="form-group">
+    <select name="role" class="form-control">
+        <option value="FASHIONISTA">{{ _('达人') }}</option>
+        <option value="EDITOR">{{ _('小编') }}</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-default">{{ _('Create') }}</button>
+</form>
+
+{% endblock %}

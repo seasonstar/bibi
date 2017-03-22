@@ -1,0 +1,343 @@
+{%- macro order_template(order, customer_admin) -%}
+{% import 'admin/order/entry.html' as entry_macro %}
+<div class="panel panel-default">
+    <input class="order-id" type="hidden" value="{{order.id}}" />
+
+    <div class="panel-heading clearfix">
+      <label class="pull-left"> <span><strong>{{order.short_id}}</strong></span></label>
+      {% if order.is_paid %}
+        <button class="pull-left btn btn-xs" disabled>PAID</button>
+      {% else %}
+        <button class="pull-left btn btn-success btn-xs" disabled>UNPAID</button>
+      {% endif %}
+      <button class="pull-left btn btn-success btn-xs status" disabled>{{order.status}}</button>
+      <label class="padding:0 20px;">final: <span>{{order.final}} </span></label>
+
+      <span class="pull-right">
+      <label class="padding:0 20px;"> <span>{{order.extra or ''}} </span></label>
+        <a href="{{url_for('orderview.cancel_order', order_id=order.id)}}"
+           type="button"
+           class="cancel btn-success btn-xs">Cancel</a>
+      </span>
+
+    </div><!-- PANEL-HEADING -->
+
+    <div class="panel-body hide">
+      {% if order.extra %}
+      <div style="background-color:rgb(243, 129, 92);text-align:center">
+        <strong>{{order.extra}}</strong>
+      </div>
+      {% endif %}
+      {% set address = order.address %}
+      <div class="wrapper">
+        <div class="col-md-3">
+          <div class="order-badge">
+              <span>订单信息</span>
+          </div>
+
+          <ul class="timeline">
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>Order ID</strong><br />
+              <span>{{order.short_id}}</span><br />
+              <span>{{order.id}}</span><br />
+
+              <strong>Customer</strong><br />
+              <span>{{order.customer_id}}</span><br />
+            </li>
+
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>Contact</strong><br />
+              {{address.receiver}}, {{address.mobile_number}}<br />
+              <strong>Address</strong><br />
+              {{address.street1}}, <br />
+              {{address.street2}},<br />
+              {{address.city}}, {{address.state}}<br />
+              {{address.postcode}}<br />
+              <strong>用户类型</strong><br />
+              <span>{% if order.is_new_customer %}New{% else %}Old{% endif %}</span>
+            </li>
+
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>创建时间</strong><br />
+              <span>{{order.created_at | format_date }}</span><br />
+              <strong>支付时间</strong><br />
+              <span>{{order.paid_date | format_date}}</span><br />
+
+              <strong>上次状态改变时间</strong><br />
+              <span>{{order.status_modified | format_date }}</span><br />
+            </li>
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>物流渠道</strong><br />
+              <span>{{order.logistic_provider}}</span><br />
+            </li>
+          </ul>
+        </div><!-- COL-MD-3 -->
+
+        <div class="col-md-3">
+          <div class="order-badge">
+              <span style="background: #F482A1">订单详情</span>
+          </div>
+          <ul class="timeline">
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>Order Type: {{order.order_type }}</strong><br />
+            </li>
+
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+            <strong>Final: {{ order.final }}</strong><br />
+              <span>amount_usd: {{order.amount_usd}}</span><br />
+              <span>amount: {{order.amount}}</span><br />
+              <span>forex: {{order.forex}}</span><br />
+              <span>commission: {{order.commission}}</span><br />
+            </li>
+
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>Discount: </strong><br />
+              <ul>
+              {% for d in order.discount %}
+              <li class="">
+                  field: {{ d.field }}<br>
+                  value: {{ d.value }}<br>
+                  desc: {{ d.desc }}
+              </li>
+              {% endfor %}
+              {% for code in order.coupon_codes %}
+              <li class="">
+                  coupon: {{ code }}
+              </li>
+              {% endfor %}
+              </ul>
+            </li>
+
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>Paid Tax: {{order.paid_tax}}</strong><br />
+              <span>estimated tax: {{order.estimated_tax}}</span><br />
+              <span>real tax: {{order.real_tax}}</span><br />
+            </li>
+
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>Shipping: {{order.shipping}}</strong><br />
+              <span>cn shipping: {{order.cn_shipping}}</span><br />
+              <span>wtf saving: {{order.wtf_saving}}</span><br />
+              <span>paid date: {{order.paid_date | format_date}}</span><br />
+            </li>
+
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>Closed Logistics ID:</strong><br />
+              <ul>
+              {% for l in order.__getattribute__('closed_logistics') %}
+                  <li><a href="/admin/n/#/dashboard/logistics/{{l.id}}">{{l.id}}</a></li>
+              {% endfor %}
+              </ul>
+            </li>
+
+            <li class="timeline-inverted">
+            <div class="timeline-badge info"></div>
+              <strong>Refund Entries:</strong><br />
+              <ul>
+              {% for e in order.__getattribute__('refund_entries') %}
+              <li class="">{{ e.id }} {{ e.title }}</li>
+              {% endfor %}
+              </ul>
+              <span>refund amount: {{order.refund_amount}}</span><br />
+            </li>
+          </ul>
+        </div><!-- COL-MD-3 -->
+
+        <div class="col-md-3">
+          <div class="order-badge">
+              <span style="background: #5cb85c">支付信息</span>
+          </div>
+            {% if order.goods_payment %}
+            <div class="well">
+              {% for p in order.goods_payment %}
+                {% if order.goods_payment.__getattribute__(p) and not p in ['id','modified']%}
+                <label>{{p}} :</label>
+                {{order.goods_payment.__getattribute__(p)}}<br/>
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+            {% if order.tax_payment %}
+            <div class="well">
+              {% for p in order.tax_payment %}
+                {% if order.tax_payment.__getattribute__(p) and not p in ['id','modified']%}
+                <label>{{p}} :</label>
+                {{order.tax_payment.__getattribute__(p)}}<br/>
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+
+        </div><!-- COL-MD-3 -->
+
+        <div class="col-md-3">
+          <div class="order-badge">
+              <span style="background: #9966CC">商品信息</span>
+          </div>
+          {% for entry in order.entries %}
+              {% set spec = entry.item_spec_snapshot %}
+              {% if spec and spec.item %}
+              <div class="item" style="width:100px; margin:0">
+                <div class="thumbnail">
+                  <a href="{{spec.item.url}}" class="product-source" target="_blank">
+                      <img src="{{spec.images[0]}}">
+                  </a>
+                  <a href="{{ spec.item.url }}" target="_blank">Item Url</a>
+                  <div class="expandContent" style="line-height:8px">
+                    <p class="title">{{spec.item.mall}}</p>
+                    <p class="title">{{spec.item.title}}</p>
+                    <p class="title">{{spec.item.main_category}} {{spec.item.sub_category}}</p>
+                    <p class="title">status: {{spec.item.status}}</p>
+                    <p class="title">weight: {{spec.item.weight}}</p>
+                    <p class="title">USD: {{entry.amount_usd}}</p>
+                    <p class="title">quantity: {{entry.quantity}}</p>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+          {% endfor %}
+        </ul><!-- timeline -->
+
+        </div><!-- COL-MD-3 -->
+      </div><!-- wrapper -->
+
+      <hr>
+    <div class="wrapper">
+
+      <div class="order-badge" style="text-align:left">
+          <span style="background: #f0ad4e; margin:8px 20px">物流详情</span>
+      </div>
+
+      <div class="col-md-12">
+      <ul class="timeline">
+        {% for l in order.__getattribute__('logistics') %}
+        <li class="timeline-inverted" id="{{l.id}}">
+        <div class="timeline-badge info"></div>
+
+          <div class="row">
+            <div class="col-lg-3">
+              <ul class="list-unstyled">
+                <li><strong>ID: <a href="/admin/n/#/dashboard/logistics/{{l.id}}">{{l.id}}</a></strong></li>
+                <li>{{_('物流状态')}}:<button class="btn btn-success btn-xs">{{l.detail.status}}</button></li>
+                <li>{{ _('包裹商品总价') }}: <button class="btn btn-danger btn-xs">{{l.amount_usd}}</button></li>
+                <li>{{ _('商品件数') }}: <button class="btn btn-warning btn-xs">{{l.entries|sum(attribute='quantity')}}</button></li>
+              </ul>
+            </div><!-- col-lg-4 -->
+
+            <div class="col-lg-3">
+
+                <div class="mall-source-section ajax-form" data-type="get" data-url="{{ url_for('orderview.edit_mall_info') }}">
+                    <input type="hidden" name="id" value="{{ l.id }}">
+                    <input type="submit" class="submit btn btn-xs btn-success" value="remark order" />
+                </div>
+                <ul class="list-unstyled">
+                    <li class="order_remark">Order Remark: {{l.detail.extra or ''}}</li>
+                </ul>
+            </div><!-- COL-LG-6 -->
+            <div class="col-lg-3">
+              <ul class="list-unstyled" style="font-size:12px">Logis Remark:
+                  {% for remark in l.detail.remarks %}
+                  <li>{{remark.content}} - {{remark.creator}} {{remark.created_at|format_date}}</li>
+                  {% endfor %}
+              </ul>
+            </div><!-- col-lg-4 -->
+          </div><!-- row  -->
+
+          <div class="logistic-entries">
+            <div class="row">
+                <div class="order-logistic-link">
+                    <strong class="pull-right"><a href="/admin/n/#/dashboard/logistics/{{l.id}}">查看物流详情</a></strong>
+                </div>
+                {% for entry in l.entries %}
+                  {{ entry_macro.entry_template(entry, l, order) }}
+                {% endfor %}
+            </div>
+          </div>
+          </li>
+        {% endfor %}
+      </ul><!-- timeline -->
+      </div> <!-- col-lg-12-->
+
+    {% if order.refund_entries %}
+        <h3>Refund Entries</h3>
+        <div class="row">
+        {% for entry in order.refund_entries %}
+            {% set spec = entry.item_spec_snapshot %}
+            {% if spec and spec.item %}
+            <div class="order-entry">
+                <div class="col-md-3">
+                  <a href="{{ spec.item.url }}" target="_blank">
+                    <img src="{{spec.item.primary_img}}" class="board-img img-thumbnail" id="{{spec.item.item_id}}">
+                  </a>
+                </div>
+                <div class="col-md-3">
+                    <dl class="dl-horizontal">
+                      <dt>Item ID</dt>
+                      <dd>{{spec.item.item_id or 'DEFAULT'}}</dd>
+                      <dt>Title</dt>
+                      <dd>{{spec.item.title or ''}}</dd>
+                      {% for attr, val in spec.attributes.items() %}
+                        <dt>{{attr.capitalize() or ''}}</dt>
+                        <dd>{{'default' if not val else val}}</dd>
+                      {% endfor %}
+                    </dl>
+                </div><! -- COL-MD-3 -->
+                <div class="col-md-3">
+                    <dl class="dl-horizontal">
+                      <dt>Weight</dt>
+                      <dd>{{spec.item.weight or ''}}</dd>
+                      <dt>Price</dt>
+                      <dd>{{entry.amount_usd or ''}}</dd>
+                      <dt>Quantity</dt>
+                      <dd>{{entry.quantity or ''}}</dd>
+                    </dl>
+                </div><! -- COL-MD-3 -->
+
+                <div class="col-md-3">
+                    <dl class="dl-horizontal">
+                      <dt>Brand</dt>
+                      <dd>{{spec.item.brand or ''}}</dd>
+                      <dt>Source</dt>
+                      <dd>{{spec.item.mall or ''}}</dd>
+                      <dt>SKU</dt>
+                      <dd>{{spec.sku or 'DEFAULT'}}</dd>
+                      <dt>Status</dt>
+                      <dd>{{spec.item.status or ''}}</dd>
+                    </dl>
+                </div><! -- COL-MD-3 -->
+            </div><!-- ORDER Entry -->
+            {% endif %}
+
+        {% endfor %}
+        </div>
+    {% endif %}
+
+      </div><!-- OVERFLOW -->
+    </div><!-- PANEL-BODY-->
+
+    <div class="panel-footer">
+      {% if order.paid_date %}
+      <label class="padding:0 20px;">Paid at: <span>{{order.paid_date | format_date}}</span></label>
+      {% else %}
+      <label class="padding:0 20px;">Created: <span>{{order.created_at | format_date}}</span></label>
+      {% endif %}
+      <label style="padding:0 20px;">Contact: <span>{{address.receiver}}</span></label>
+
+      <span class="pull-right">
+        <label class="padding:0 20px;"> <span>{% if order.transfer_code %}Transfer Code: {{order.transfer_code}}{% endif %}</span></label>
+        <button class="btn btn-xs" disabled>{{order.source}}</button>
+      </span>
+    </div><!-- PANEL-FOOTER -->
+
+</div><!-- PANEL-DEFAULT -->
+{%- endmacro -%}

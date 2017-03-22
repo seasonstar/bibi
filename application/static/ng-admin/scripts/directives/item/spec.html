@@ -1,0 +1,31 @@
+
+<div class="thumbnail spec-content">
+    <span class="pull-right" ng-click="removeSpec(spec._id)">x</span>
+  <a href="#" editable-text="spec.images">
+      <img ng-src="{{img}}" ng-repeat="img in spec.images" width="100px">
+  </a>
+  <div>sku: {{spec._id}}</div>
+  <div>web_sku: {{spec.web_sku}}</div>
+  <div>现价$:
+      <a href="#" editable-text="spec.price">{{spec.price}}</a>
+  </div>
+  <div>原价$:
+      <a href="#" editable-text="spec.original_price">{{spec.original_price}}</a>
+  </div>
+  <div>采购价￥:
+      <a href="#" editable-text="spec.china_price">{{spec.china_price}}</a>
+  </div>
+  <div>有效:
+      <code><a href="#" editable-checkbox="spec.availability"
+              e-title="上架?">{{spec.availability&& "上架" || "下架"}}
+      </a></code>
+  </div>
+  ---------属性---------
+  <div ng-repeat="attr in item.meta.attributes">
+      {{attr}}:
+      <a href="#" editable-text="spec.attributes[attr]">
+          {{spec.attributes[attr] || 'null'}}
+      </a>
+  </div>
+  <button type="button" class="btn btn-success btn-sm" ng-click="saveSpec(spec)">保存</button>
+</div>

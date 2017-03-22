@@ -1,0 +1,26 @@
+<section class="bd ajax-form" data-type="POST" data-url="/admin/orderview/mall_info">
+  <fieldset>
+      <label for='remark'>Remark: </label>
+      <input name="remark" value="<%= data.remark %>" placeholder="remark" class="form-control">
+  </fieldset>
+  <fieldset>
+    <label for='failure_reason'>下单失败原因: </label>
+    <select name="failure_reason" class="form-control">
+      <option></option>
+      <option <%= data.failure_reason == "自动下单已无货" ? "selected" : "" %>>自动下单已无货</option>
+      <option <%= data.failure_reason == "自动转手动时间差过长，无货" ? "selected" : "" %>>自动转手动时间差过长，无货</option>
+      <option <%= data.failure_reason == "官网取消订单，补单时无货" ? "selected" : "" %>>官网取消订单，补单时无货</option>
+      <option <%= data.failure_reason == "隔天手动下单无货" ? "selected" : "" %>>隔天手动下单无货</option>
+      <option <%= data.failure_reason == "正常工作时间差过长，无货" ? "selected" : "" %>>正常工作时间差过长，无货</option>
+      <option <%= data.failure_reason == "改状态时无货" ? "selected" : "" %>>改状态时无货</option>
+      <option <%= data.failure_reason == "午休后人手下单，无货" ? "selected" : "" %>>午休后人手下单，无货</option>
+      <option <%= data.failure_reason == "其他" ? "selected" : "" %>>其他</option>
+    </select>
+
+  </fieldset>
+  <fieldset>
+    <input type="hidden" name="lid" value="<%= data.id %>"/>
+    <input type="submit" name="submit" value="submit" class="submit btn btn-success">
+    <a class="btn btn-default" onclick="$('.dialog').remove()">Cancel</a>
+  </fieldset>
+</section>

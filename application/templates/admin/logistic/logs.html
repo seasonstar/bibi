@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <tr>
+    <th>timestamp</th>
+    <th>info</th>
+    <th>user</th>
+  </tr>
+  {% for log in logs %}
+    <tr>
+        <td>{{log.timestamp|format_date}}</td>
+        <td>
+            {% for k, v in log.info.items() %}
+            {{k}}: {{v}}<br>
+            {% endfor %}
+        <td>{{user(log.user_id)}}</td>
+    </tr>
+  {% endfor %}
+</table>
+<button class="cancel btn btn-xs btn-info">Close</button>

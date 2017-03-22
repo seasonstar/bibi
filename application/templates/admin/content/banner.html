@@ -1,0 +1,100 @@
+{% extends 'admin/master2.html' %}
+{% block head_css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datetimepicker.min.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="pull-right">
+            <a href="{{ url_for('bannerview.upload') }}" type="button"
+                class="btn btn-warning">{{ _('+ Add New Banner') }}</a>
+        </div>
+        <h3 class="text-center">首页BANNERS</h3>
+        <p>NOTICE：可鼠标拉动图片调整排序。</p>
+    </div>
+  <div class="drop-area" data-api="{{url_for('bannerview.move')}}">
+  {% for banner in banners %}
+    <div class="col-lg-12" style="">
+        <div class="thumbnail draggable"
+            draggable="true"
+            data-id="{{banner.id}}"
+            style="border:1px solid #d4d4d4">
+          <div class="panel-heading">
+            <span>
+                <strong>No.{{ banner.order }}:</strong> {{banner.title}}
+            </span>
+            <span class="label label-success">{{banner.target_obj.num_views}}</span>
+            <span class="pull-right">
+                <a href="{{ url_for('bannerview.delete', id=banner.id) }}"
+                    type="button", class="btn btn-danger">删除</a></span>
+                <form class="form-inline"
+                    action="{{url_for('bannerview.set', id=banner.id)}}"
+                    method="POST" role="form"
+                    enctype="multipart/form-data" >
+                <div class="form-group">
+                    <input type="text" class="form-control"
+                        name="from" id="datetimepicker"
+                        data-date-format="yyyy-mm-dd hh:ii"
+                        placeholder="from: {{ banner.date_from }}">
+                    <input type="text" class="form-control"
+                        name="until" id="datetimepicker"
+                        data-date-format="yyyy-mm-dd hh:ii"
+                        placeholder="until: {{ banner.date_until }}">
+                    <input type="text" value="{{banner.target}}"
+                        class="form-control"
+                        name="target" placeholder="target">
+                    <input type="text" value="{{banner.banner_type}}"
+                        class="form-control"
+                        name="banner_type" placeholder="BOARD or URL">
+                </div>
+                <input type="submit"
+                class="btn btn-success btn-sm"
+                value="{{ _('Submit') }}" />
+                </form>
+            </span>
+          </div>
+          <div class="article-editor panel panel-default" style="border:3px">
+            <img src="{{banner.img}}" width="320px">
+            <form class="form-inline"
+                action="{{url_for('bannerview.upload_img', id=banner.id)}}"
+                method="POST" role="form"
+                enctype="multipart/form-data" style="display:inline">
+
+                <div class="form-group">
+                    <input type="file"
+                    class="form-control" id="image"
+                    name="img" style="width:180px">
+                </div>
+                <input type="submit"
+                class="btn btn-success btn-xs" value="提交" />
+            </form>
+
+          </div>
+        </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}
+{% block tail_js %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/admin/dragorder.js') }}"></script>
+<script src="{{ url_for('static', filename='js/libs/bootstrap-datetimepicker.min.js') }}"></script>
+<script>
+    $('input#datetimepicker').focus(function(){
+        $(this).datetimepicker();
+        $(this).datetimepicker('show');
+        $(this).on('changeDate', function(ev){
+            // do stuff
+        }).on('hide', function(){
+                $(this).datetimepicker('remove');
+            });
+    });
+
+</script>
+{% endblock %}

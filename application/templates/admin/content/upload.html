@@ -1,0 +1,28 @@
+{% extends 'admin/master2.html' %}
+
+{% block body %}
+{{ super() }}
+<form enctype="multipart/form-data"
+    action="{{url_for('bannerview.upload')}}"
+    class="form" role="form"
+    method="post">
+  <div class="form-group">
+    <input type="file" class="form-control" id="image" name="image">
+  </div>
+  <div class="form-group">
+    <label class="radio-inline">
+      <input type="radio" name="banner_type" checked=true value="BOARD">
+      BOARD
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="banner_type" value="URL">
+      URL
+    </label>
+  </div>
+  <div class="form-group">
+      <input type="text" class="form-control" id="boardid" name="boardid" placeholder="{{ _('如果是连接Board,填写Board ID,如果是跳转到一个页面，填写url') }}">
+  </div>
+  <button type="submit" class="btn btn-default">{{ _('Upload') }}</button>
+</form>
+
+{% endblock %}

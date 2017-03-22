@@ -1,0 +1,134 @@
+<div>
+<div class="panel mallOrder-heading panel-heading title item">
+  <div class="pull-left" style="width:840px" ng-click='toggle()'>
+      <span class="badge time-progress">
+        <a style="color:white" href="#" editable-checkbox="item.meta.availability" e-title="上架?">
+            {{item.meta.availability&& "上架" || "下架"}}
+        </a>
+      </span>
+      <label class="time">{{item.meta._id}}</label>
+      <label class="us-tracking-no">
+        <a href="#" editable-text="item.meta.title">
+            {{item.meta.title}}
+        </a>
+      </label>
+      <label class="main_category">
+        主:<a href="#" editable-text="item.meta.main_category">
+            {{item.meta.main_category}}
+        </a>
+      </label>
+      <label class="main_category">
+        子:<a href="#" editable-text="item.meta.sub_category">
+            {{item.meta.sub_category}}
+        </a>
+      </label>
+  </div>
+  <button ng-click="saveItem(item)" class="btn btn-success btn-sm">保存</button>
+
+
+</div>
+<div ng-show="item.expand" class="panel-body">
+    <div class="entries">
+      <div class="col-md-12">
+        <div class="row selectable">
+          <div class="col-lg-4">
+            <ul class="meta">
+                <li>item_id: {{item.meta._id}}</li>
+                <li>title: <strong>
+                    <a href="#" editable-text="item.meta.title">{{item.meta.title}}</a>
+                    </strong>
+                </li>
+                <li>title_en:
+                    <a href="#" editable-text="item.meta.title_en">{{item.meta.title_en||'null'}}</a>
+                </li>
+                <li>main_category:
+                    <a href="#" editable-text="item.meta.main_category">{{item.meta.main_category}}</a>
+                </li>
+                <li>sub_category:
+                    <a href="#" editable-text="item.meta.sub_category">{{item.meta.sub_category}}</a>
+                </li>
+                <li>weight:
+                    <code>
+                        <a href="#" editable-text="item.meta.weight">{{item.meta.weight}}</a> 克
+                    </code>
+                </li>
+                <li>num_views: <code>{{item.meta.num_views}}</code></li>
+                <li>num_buy: <code>{{item.meta.num_buy}}</code></li>
+            </ul>
+          </div>
+          <div class="col-lg-4">
+            <ul class="ul-horizontal">
+                <li>现价: <a href="#" editable-text="item.meta.price">{{item.meta.price}}</a></li>
+                <li>原价:
+                    <a href="#" editable-text="item.meta.original_price">{{item.meta.original_price}}</a>
+                </li>
+                <li>采购价￥:
+                    <a href="#" editable-text="item.meta.china_price">{{item.meta.china_price}}</a>
+                </li>
+                <li>brand: <a href="#" editable-text="item.meta.brand">{{item.meta.brand}}</a></li>
+                <li>vendor:
+                    <a href="#" editable-text="item.meta.vendor">{{item.meta.vendor}}</a>
+                </li>
+                <li>attributes:
+                    <a href="#" editable-checklist="item.meta.attributes"
+                        e-ng-options="s.value as s.text for s in ATTRS">
+                        {{ showAttrs() }}
+                    </a>
+                </li>
+                <li>creator: <code>{{item.meta.creator}}</code></li>
+                <li>有效: <code><a href="#" editable-checkbox="item.meta.availability" e-title="上架?">{{item.meta.availability&& "上架" || "下架"}}</a></code></li>
+              <button ng-click="saveItem(item)" class="btn btn-success btn-sm">保存</button>
+            </ul>
+          </div>
+          <div class="imgs col-lg-4">
+              <a href="#" editable-text="item.meta.primary_img">
+                  <img ng-src="{{item.meta.primary_img}}" width="150px" height="150px">
+              </a><br/ >
+              <a href="#" editable-text="item.meta.url" target="_blank">
+                  修改商品原url
+              </a><br>
+              <a ng-href="{{item.meta.url}}" target="_blank">
+                  访问商品原url
+              </a><br>
+              <a ng-href="http://m.maybi.cn/#/items/{{item.meta._id}}" target="_blank">
+                  访问美比url
+              </a>
+          </div>
+        </div>
+      </div> <! --col-12-lg -->
+
+      <div class="col-md-12">
+          description:
+          <div class="ueditor" ng-model="item.meta.description"></div>
+      </div>
+
+      <div class="col-md-12">
+          <h4>种类: </h4>
+        <div class="row selectable">
+          <div class="col-lg-3" ng-repeat="spec in item.specs">
+              <spec></spec>
+          </div>
+          <div class="col-lg-3">
+            <div class="thumbnail spec-content">
+              <form class="form">
+                <legend>创建新种类</legend>
+                图片: <input type="text" class="form-control" ng-model="newSpec.images"><br />
+                现价$: <input type="number" class="form-control" ng-model="newSpec.price"><br />
+                原价$: <input type="number" class="form-control" ng-model="newSpec.original_price"><br />
+                采购￥:<input type="number" class="form-control" ng-model="newSpec.china_price"><br />
+                ---------===属性===---------
+                <div ng-repeat="attr in item.meta.attributes">
+                    {{attr}}:
+                    <input type="text" class="form-control" ng-model="newSpec.attributes[attr]">
+                </div>
+                <button type="button" class="btn btn-success btn-sm" ng-click="addSpec()">加入</button>
+              </form>
+            </div>
+          </div>
+        </div> <!--row -->
+      </div> <!-- col-12-lg-->
+    </div> <!--entries -->
+</div><!--panel-body!-->
+
+
+</div>

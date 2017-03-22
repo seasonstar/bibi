@@ -1,0 +1,60 @@
+{% import 'admin/layout.html' as layout with context -%}
+{% extends 'admin/base.html' %}
+
+{% block head_tail %}
+    {{ super() }}
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/sb-admin/css/sb-admin-2.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/content.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block page_body %}
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {% block brand %}
+                <a class="navbar-brand" href="#">{{ admin_view.admin.name }}</a>
+                {% endblock %}
+            </div><!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+            {{ layout.menu_links() }}
+            </ul><!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        {{ layout.menu() }}
+                    </ul>
+                </div>
+            </div><!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">{{ admin_view.name|capitalize }}</h2>
+                    {{ layout.messages() }}
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+    <div id="loading" style="display:none">
+        <img src="{{ url_for('static', filename='img/log-loading.gif') }}" alt="loading..."/>
+    </div>
+
+{% endblock %}
+{% block tail_js %}
+    {{ super() }}
+    <!--script at the end of the page-->
+
+{% endblock %}

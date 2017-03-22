@@ -1,0 +1,318 @@
+/* Space out content a bit */
+body {
+    padding-bottom: 20px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+.nav>li.active>a {
+text-decoration: none;
+background-color: #eee;
+}
+
+nav .sidebar{width:200px}
+#wrapper #page-wrapper{margin:0 0 0 200px}
+table caption{text-align: left}
+
+/* Logistics Backend */
+
+*[draggable=true] {cursor: move}
+label {cursor: default}
+detail label {padding: 0 10px;}
+fieldset {padding: 10px 0;}
+li.tab.on {background-color: #3276b1; color: #fff;}
+li.tab.on a {color:#fff;}
+.entries {border: 1px solid #eee; padding: 5px; margin: 5px; border-radius: 3px; margin-left: 50px; overflow: hidden; zoom:1;}
+.entries:hover { box-shadow: -2px 3px 3px #888;}
+.entries .imgs {float: right;}
+.order {border: 1px solid #eee; padding: 5px; margin: 5px; border-radius: 3px;}
+.order:hover { box-shadow: -2px 3px 3px #666;}
+.irregular {border-left: 3px solid #9966CC}
+.irregular .panel-heading{ box-shadow: -2px 3px 3px #C015B9;}
+.irregularity.cancel { background-color: #dff0d8;}
+.mallOrder .logistic_detail { height: 300px; width: 500px; overflow: scroll; padding: 10px; border-radius: 5px; overflow-x:hidden; box-shadow: 1px 1px 1px 1px #888; }
+.mallOrder .logistic_detail label { color: green; font-weight: 800;}
+.mallOrder .logistic_detail tr,
+.mallOrder .logistic_detail th { padding: 10px; }
+.mallOrder .panel-heading label {padding: 5px 0; font-size: 12px; display: inline-block; white-space: nowrap; width: 130px}
+.mallOrder .panel-heading label.us-tracking-no {width: 250px; }
+.mallOrder .panel-heading label.cn-tracking-no {width: 240px; }
+.mallOrder .panel-heading .pull-right {margin-left: 20diffpx;}
+.mallOrder .panel-heading .img-no {width: 180px; margin-left: 0px;}
+.mallOrder .panel-heading .status {width: 130px; margin-left: 0px;}
+.mallOrder .panel-heading a,span {padding: 0 2px; font-size: 12px;}
+.mallOrder .panel-heading a.pull-left {padding: 5px;}
+.mallOrder .panel-heading label.user {width: 140px;}
+.mallOrder .panel-heading label.main_category {width: 100px;}
+.mallOrder .panel-heading label.tax {width: 80px;}
+.mallOrder .panel-heading label.weight {width: 98px;}
+.mallOrder .panel-heading label.logistic {width: 80px;}
+.mallOrder .panel-heading label.time {width: 80px;}
+.mallOrder .panel-heading label.timediff {width: 80px; margin-left:8px;}
+.mallOrder .panel-heading label.triangle {width: 24px;}
+.mallOrder .panel-heading label.irregular-reason{width: 100px;color:#9966CC}
+.mallOrder .panel-heading label.delay-reason {display: inline-block; width: 72px; color:rgb(156, 56, 56)}
+.mallOrder .panel-heading .us-tracking-no {width: 230px; display: inline-block;}
+.mallOrder .panel-body { box-shadow: -3px 3px 3px #888;}
+.mallOrder .panel-body:hover { box-shadow: -5px 5px 5px #777;}
+.mallOrder.folder.on .panel-body { background-color: #fff;}
+.mallOrder.folder.on .panel { margin-bottom:8px!important; background-color: #eee; padding: 0px 10px; height: 35px;}
+.mallOrder.folder.on { margin-bottom:12px;border-width:0px; background-color: #fff;}
+.mallOrder.folder.on:nth-child(odd) .panel-heading {background-color: #dedede;}
+.mallOrder.folder.on { box-shadow: -3px 3px 2px #888;}
+.mallOrder.folder.on:hover { box-shadow: -3px 5px 5px #888;}
+.order-badge span{margin:6px 20px;}
+.btn-irregular {color:white; border-color:#9966CC;background-color:#9966CC}
+.btn-irregular:hover {color:white; background-color:#9955dd}
+
+.mallOrder.item label .editable-click, a.editable-click{color: #333; text-decoration:none; border-bottom: 0px}
+
+.dialog {border: 1px solid #ddd; padding: 20px; background-color: #fff;}
+.dialog fieldset {display:block; width: 200px; text-align:center; padding: 10px 0;}
+.dialog .title {padding: 5px 0;}
+.dialog span {font-weight: 800;}
+.dialog label span {margin-right: 10px; overflow:hidden;}
+.dialog .form-control {width: 180px; display:inline-block; margin-left:20px;}
+.dialog .btn { padding: 8px 13px; margin: 0 10px; }
+.search form {margin-bottom}
+.search form:nth-child(odd) {padding-right: 30px;}
+.search .field {width: 200px; display: inline; height: 35px; margin-bottom: 0px;}
+.search label {padding-right: 10px;}
+.search .multi-search {width: 500px}
+
+//  .highlight {box-shadow: -3px 3px 2px #ff6666;}
+.highlight .panel-heading {box-shadow: -3px 0px 0px #ff6666;}
+.has_extra .panel-heading {box-shadow: -3px 0px 0px yellow;}
+.time-progress{width:60px; height:14px; margin:6px; float:left; background-color:#5cb85c}
+.progress {display:inline-block; width:60px; height: 14px; margin:8px 0; padding:0; float: left;}
+.progress span {z-index: 1000; position: relative; top: -22px; right: -19px; color: #fff; font-weight:800;}
+.progress progress[value] {appearance: none; -webkit-appearance: none; width: 60px; padding: 0;}
+.eric .progress span {top: -18px;}
+.editable {color: #666; cursor: text;}
+.flex-selector .value {color: #368;}
+.next {margin-left:0!important;}
+
+.navbar {height: 50px;}
+.navbar .navbar-inner { display: #none;}
+.navbar:hover .navbar-inner {display:#block;}
+
+.attachment_files{white-space: nowrap; font-size:8px; font-weight:800}
+
+<!-- Progress with steps -->
+ol.progtrckr {margin: 0; padding: 0; list-style-type none; }
+ol.progtrckr li {display: inline-block; text-align: center;  line-height: 3em; }
+ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+ol.progtrckr[data-progtrckr-steps="9"] li { width: 10%; }
+ol.progtrckr[data-progtrckr-steps="10"] li { width: 9%; }
+
+ol.progtrckr li.progtrckr-done {color: black; border-bottom: 4px solid yellowgreen;  }
+ol.progtrckr li.progtrckr-todo {color: silver; border-bottom: 4px solid silver;  }
+
+ol.progtrckr li:after {content: "\00a0\00a0";}
+ol.progtrckr li:before {position: relative;bottom: -2.5em;float: left; left: 50%; line-height: 1em;  }
+ol.progtrckr li.progtrckr-done:before {content: "\2713"; color: white; background-color: yellowgreen;height: 1.2em; width: 1.2em; line-height: 1.2em; border: none; border-radius: 1.2em;}
+ol.progtrckr li.progtrckr-todo:before {content: "\039F";color: silver;background-color: white;font-size: 1.5em;bottom: -1.6em;  }
+
+div.per-page {display: inline-block; vertical-align: middle;}
+ul.pagination{display: inline-block; vertical-align: middle;}
+div.advancedSearchBox .search-parameter-input{width:700px;}
+
+.filter {padding: 10px; border: solid 1px #ccc; border-radius: 5px; margin-top: 10px; text-align: left;}
+.filter .tabs {list-style-type: none; margin: 0; display: inline-block; zoom:1; }
+.filter .tab {float: left; cursor: pointer; margin: 3px 2px; border-radius: 5px; position: relative; min-height: 1px; border: 1px solid #ddd; padding: 8px 15px 8px;}
+.tabs .on{background-color: #3276b1;}
+.tabs .on a{color:#fff}
+.tabs .on a:hover{color:#fff}
+.cate-box {display:block; border-bottom: 1px solid #d8d8d8; padding:8px}
+.cate-box:last-child{display:block; border-bottom: 0px; padding:8px}
+.cate-head {font-weight: 900;}
+
+.order-badge span{margin: 20px 20px ; display: inline-block; min-width: 20px; padding: 6px 20px; font-size: 14px; font-weight: 700; color: #fff; vertical-align: baseline; white-space: nowrap; text-align: center; background-color: #28a4c9; border-radius: 14px;}
+.order-label{padding: 0 8px;}
+.timeline:before {content: " ";position: absolute; top: 0; bottom: 0; left:0; width: 3px; margin-left: -1.5px; background-color: #eeeeee;}
+.timeline > li {position: relative; margin-bottom: 20px; left: 20px;}
+.timeline > li > .timeline-badge {  z-index: 100;  position: absolute; top: 16px; left: 0%; width: 10px; height: 10px; margin-left: -25px; border-radius: 50% 50% 50% 50%; text-align: center; font-size: 1.4em; line-height: 50px; color: #fff; background-color: #999999;}
+
+.current{border-radius: 8px;background: #ddd;}
+.delay-bar{text-align:center}
+.delay-bar span{font-size:13px}
+.delay-bar .status {padding: 16px;}
+.delay-bar .big-number {font-weight: bolder;}
+.irr-bar{ text-align:center; min-height: 1px;}
+.irr-bar span{font-size:13px}
+.irr-bar .status{float:left; padding: 8px 16px; margin-left:2px;border: 1px solid #ddd; border-radius:8px}
+
+
+.search-box {margin-top: 10px}
+.search-box input{display: inline;width:250px}
+.search-box input[type=radio]{width:20px}
+.search-box select{display: inline;width:150px}
+.filter-box input{display: inline;width:200px}
+.filter-box select{display: inline;width:200px}
+.expand-toggle {text-align: center;cursor: pointer;}
+
+.ng-modal {
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+}
+.ng-modal-overlay {
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.ng-modal-dialog {
+  border-radius: 8px;
+  z-index: 10000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  background-color: rgba(255,255,255,0.85);;
+  box-shadow: 4px 4px 80px #000;
+  -webkit-box-shadow: 4px 4px 80px #000;
+  -moz-box-shadow: 4px 4px 80px #000;
+  -ms-box-shadow: 4px 4px 80px #000;
+  -o-box-shadow: 4px 4px 80px #000;
+  padding: 20px;
+}
+.ng-modal-dialog-content {
+  overflow: hidden;
+  height: 100%;
+}
+.ng-modal-close {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  cursor: pointer;
+  font-size: 120%;
+  padding: 5px;
+  display: inline-block;
+}
+.ng-modal-close-x {
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+.ng-modal-title {
+  font-weight: bold;
+  font-size: 200%;
+  display: block;
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+  border-bottom: solid 1px #ddd;
+}
+.ng-modal .form-control {display: inline-block; width: 200px;}
+.ng-modal label{width: 120px;}
+.ng-modal button{width: 100%;}
+.logistic-actions ul{font-size:12px}
+.logistic-actions button{color:#fff}
+.chat-panel {margin-bottom:0; padding:0; }
+.chat-panel .panel-body{height:150px; box-shadow: 0px 2px 2px #888; border-top: 1px solid #ddd;}
+.chat-panel .panel-body:hover{box-shadow: -1px 2px 2px #888}
+.chat li.left .chat-body {margin-left:20px}
+.chat li.left .chat-body {margin-left:20px}
+.chat-header {margin-bottom:1px}
+
+.irr-detail {z-index:10000}
+
+.dialog {border: 1px solid #ddd; padding: 20px; background-color: #fff; z-index: 1000; position: absolute}
+.dialog fieldset {display:block; width: 200px; text-align:center; padding: 10px 0;}
+.dialog .title {padding: 5px 0;}
+.dialog span {font-weight: 800;}
+.dialog label span {margin-right: 10px; overflow:hidden;}
+.dialog .form-control {width: 180px; display:inline-block; margin-left:20px;}
+.dialog .btn { padding: 8px 13px; margin: 0 10px; }
+
+.new_expense_btn{display: block; position: fixed; left: 150px; margin-left: 20px; top: 225px; z-index: 10000;}
+.split_entries_btn{display: block; position: fixed; left: 150px; margin-left: 20px; top: 265px; z-index: 10000;}
+.spec-content{
+    text-align: center;
+}
+.spec-content .form-control {display: inline-block; width: 150px;}
+.ng-modal .china_price {width:80px}
