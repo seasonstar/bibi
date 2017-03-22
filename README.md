@@ -88,4 +88,30 @@ python3 manage.py shell
 ```
 python3 manage.py runserver
 ```
-现在可以打开 http://127.0.0.1:5000/
+本地可以打开 http://127.0.0.1:5000/
+
+
+部署
+```bash
+pip3 install gunicorn
+
+gunicorn -w 4 -b 127.0.0.1:8000 application:create_app
+```
+
+nginx配置
+```nginx
+server {
+    listen 80;
+    server_name example.org; # 这是HOST机器的外部域名，用地址也行
+
+    location / {
+        proxy_pass http://127.0.0.1:8000; # 这里是指向 gunicorn host 的服务地址
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+  }
+
+```
+全部完成。
+有问题，欢迎提Issue
