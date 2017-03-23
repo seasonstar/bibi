@@ -109,7 +109,7 @@ command=/root/Env/bibi/bin/gunicorn
     --log-level debug
     "application.app:create_app()"
 
-directory=/opt/py-maybi/
+directory=/opt/py-maybi/                                       ; 你的项目代码目录
 autostart=false                                                ; 是否自动启动
 autorestart=false                                              ; 是否自动重启
 stdout_logfile=/opt/logs/gunicorn.log                          ; log 日志
