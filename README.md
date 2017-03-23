@@ -40,6 +40,13 @@ Bibi是一个出口电商服务后端，基于 Flask, MongoDB, Redis, Celery, Ra
 - [x] 4PX物流商对接
 
 
+### Screenshot
+
+物流管理界面
+![](http://7xn6eu.com1.z0.glb.clouddn.com/Logistics-Backend.jpg)
+商品管理界面
+![](http://7xn6eu.com1.z0.glb.clouddn.com/Item%20Backend.png)
+
 **搭建环境**
 
 本教程基于Ubuntu/Debian，已安装python3 环境的请跳过
