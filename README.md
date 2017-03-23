@@ -104,7 +104,7 @@ bibi.conf代码
 ```
 [program:bibi]
 command=/root/Env/bibi/bin/gunicorn
-    -w 3  ;开启workers数，公式：（系统内核数*2 + 1)
+    -w 3
     -b 0.0.0.0:8080
     --log-level debug
     "application.app:create_app()"
@@ -115,6 +115,7 @@ autorestart=false                                              ; 是否自动重
 stdout_logfile=/opt/logs/gunicorn.log                          ; log 日志
 redirect_stderr=true
 ```
+PS: 上面 -w 为 开启workers数，公式：（系统内核数*2 + 1)
 
 nginx配置
 ```nginx
