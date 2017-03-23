@@ -97,7 +97,7 @@ class Partner(db.Document):
 
     @password.setter
     def password(self, password):
-        self._password = str(bcrypt.generate_password_hash(password))
+        self._password = bcrypt.generate_password_hash(password).decode('utf-8')
         self.save()
 
     @classmethod

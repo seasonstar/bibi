@@ -14,7 +14,7 @@ TEMPLATE_DIR = os.path.join(_basedir,'application', 'templates')
 
 
 E = Enum(['development', 'production', 'test'])
-APP_NAME = Enum(['maybi', 'worker'])
+APP_NAME = Enum(['maybi', 'worker', 'admin'])
 
 
 class BaseConfig(object):

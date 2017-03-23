@@ -120,7 +120,7 @@ class UserAccount(db.EmbeddedDocument):
 
     @password.setter
     def password(self, password):
-        self._password = str(bcrypt.generate_password_hash(password))
+        self._password = bcrypt.generate_password_hash(password).decode('utf-8')
         print (self._password)
 
     def check_password(self, password):
