@@ -2,6 +2,10 @@
 
 Bibi是一个出口电商服务后端，基于 Flask, MongoDB, Redis, Celery, RabbitMQ, 支持 Python 3.5.
 
+前端代码请前往 [bibi-frontend](https://github.com/seasonstar/bibi-frontend) 查看
+
+----------------
+
 **Features**：
 
 - [x] 用户中心
@@ -121,7 +125,7 @@ nginx配置
 ```nginx
 server {
     listen 80;
-    server_name example.org; # 这是HOST机器的外部域名，用地址也行
+    server_name bigbang.maybi.cn; # 这是HOST机器的外部域名，用地址也行
 
     location / {
         proxy_pass http://127.0.0.1:8080; # 这里是指向 gunicorn host 的服务地址
