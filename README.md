@@ -93,9 +93,27 @@ python3 manage.py runserver
 
 部署
 ```bash
+# 安装 supervisor
+sudo apt-get install supervisor
+# 安装 gunicorn
 pip3 install gunicorn
 
-gunicorn -w 4 -b 127.0.0.1:8080 application:create_app
+sudo vim /etc/supervisor/conf.d/bibi.conf
+```
+bibi.conf代码
+```
+[program:bibi]
+command=/root/Env/bibi/bin/gunicorn
+    -w 3  ;开启workers数，公式：（系统内核数*2 + 1)
+    -b 0.0.0.0:8080
+    --log-level debug
+    "application.app:create_app()"
+
+directory=/opt/py-maybi/
+autostart=false                                                ; 是否自动启动
+autorestart=false                                              ; 是否自动重启
+stdout_logfile=/opt/logs/gunicorn.log                          ; log 日志
+redirect_stderr=true
 ```
 
 nginx配置
@@ -111,7 +129,18 @@ server {
     }
 
   }
+```
+
+接着启动supervisor, nginx
+```bash
+sudo supervisorctl reload
+sudo supervisorctl start bibi
+
+sudo service nginx restart
 
 ```
-全部完成。
-有问题，欢迎提Issue
+
+大功告成。
+
+
+有问题，欢迎提Issue。
