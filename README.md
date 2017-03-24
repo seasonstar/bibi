@@ -1,12 +1,14 @@
 ## Bibi
 
+Bibi原本是一款海外留学生活助手APP，含电商，社交等热门模块，经历过商业运营的考验，是较为成熟的解决方案。
+
 本项目是电商服务后端，基于 Flask, MongoDB, Redis, Celery, RabbitMQ, 支持 Python 3.5.
 
 Bibi 提供电商全栈解决方案，配合以下项目使用:
 
 > [bibi-frontend](https://github.com/seasonstar/bibi-frontend) 微信前端项目
 
-> [bibi-ionic](https://github.com/seasonstar/bibi-ionic) mobile app源码
+> [bibi-ionic](https://github.com/seasonstar/bibi-ionic) 手机端Hybrid APP源码
 
 ----------------
 
@@ -39,8 +41,9 @@ Bibi 提供电商全栈解决方案，配合以下项目使用:
 - [x] 后台管理系统
 
 - [x] AWS文件上传
-- [x] Openexchange外币兑换汇率API对接
 - [x] Bing翻译API对接
+- [x] Openexchange外币兑换汇率API对接
+- [x] kuaidi100快递跟踪API对接
 - [x] 4PX物流商对接
 
 
@@ -76,7 +79,7 @@ source ~/.bashrc
 mkvirtualenv bibi # bibi可随便改成你的项目名
 workon bibi # 现在已进入项目的独立环境
 
-# 安装 mongodb 略  (请尽量安装mongodb 3.0以下版本)
+# 安装 mongodb 略  (请安装mongodb 3.0以下版本)
 # 安装 redis 略
 # 安装 rabbitMQ 略
 
