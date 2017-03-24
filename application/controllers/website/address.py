@@ -13,7 +13,7 @@ address = Blueprint('address', __name__, url_prefix='/api/address')
 @address.route('/hierarchy', methods=['GET'])
 @cached(21600)
 def get_countries():
-    return jsonify(message='OK', countries=REGION_HIERARCHY.keys())
+    return jsonify(message='OK', countries=list(REGION_HIERARCHY.keys()))
 
 
 @address.route('/hierarchy/<country>', methods=['GET'])
