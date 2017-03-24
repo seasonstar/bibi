@@ -42,6 +42,8 @@ Bibi是一个出口电商服务后端，基于 Flask, MongoDB, Redis, Celery, Ra
 
 ### Screenshot
 
+内容管理界面
+![](http://7xn6eu.com1.z0.glb.clouddn.com/backend.png)
 物流管理界面
 ![](http://7xn6eu.com1.z0.glb.clouddn.com/Logistics-Backend.jpg)
 商品管理界面
@@ -143,12 +145,15 @@ server {
   }
 ```
 
-接着启动supervisor, nginx
+接着启动celery, supervisor, nginx
 ```bash
+celery -A application.cel worker -l info &
+
 sudo supervisorctl reload
 sudo supervisorctl start bibi
 
 sudo service nginx restart
+
 
 ```
 
