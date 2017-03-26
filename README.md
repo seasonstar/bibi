@@ -1,5 +1,4 @@
-## Bibi
-
+## Bibi  留着作为Python web应用参考
 **Bibi** is an e-commerce fullstack solution built with Flask, it includes e-commerce, social, and hot common modules. It stood the test of business operations, is a light but complete solution.
 
 This project provides backend service, based on Flask, MongoDB, Redis, Celery, RabbitMQ, and supports Python 3.5.
