@@ -12,6 +12,5 @@ manager.add_option('-n', '--name', dest='app_name', required=False, choices=APP_
 
 manager.add_command("showurls", ShowUrls())
 
-
 if __name__ == '__main__':
     manager.run()

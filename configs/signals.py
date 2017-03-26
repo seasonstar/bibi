@@ -28,6 +28,5 @@ logistic_auto_splitted = _signals.signal('logistic_auto_splitted')
 
 order_status_changed = _signals.signal('order_status_changed')
 logistic_info_updated = _signals.signal('logistic_info_updated')
-auto_pay_done = _signals.signal('auto_pay_done')
 
 express_tracking_updated = _signals.signal('express_tracking_updated')

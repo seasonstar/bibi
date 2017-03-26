@@ -82,11 +82,9 @@ class Trade(db.Document):
 
     descs = {
         'PAY': u'购买',
-        'OTHER': u'',
         'CANCEL': u'取消订单',
         'SHIPPING_FEE': u'返还运费',
         'PROMOTE': u'参与活动',
-        'FLASH_GROUP': u'拼单成功返现',
         'WECHAT_LOGIN': u'微信账号登陆',
         'IOS_APP': u'下载手机客户端',
         'VERIFIED_ID': u'上传身份证资料',
@@ -94,8 +92,7 @@ class Trade(db.Document):
         'SECOND_SHARED': u'你的链接被分享了',
         'SHARED_ORDER': u'通过你的链接购买',
         'ORDER': u'订单完成',
-        'ORDER_HONGBAO': u'获得红包',  # 别人订单完成后抢到的红包
-        'ITEMSHOW_PUBLISH': u'成功发布一张晒单',
+        'OTHER': u'其他',
     }
 
     def clean(self):
