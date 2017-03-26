@@ -47,7 +47,7 @@ Bibi 提供电商全栈解决方案，配合以下项目使用:
 - [x] 4PX物流商对接
 
 
-### Screenshot
+#### Screenshot
 
 内容管理界面
 ![](http://7xn6eu.com1.z0.glb.clouddn.com/Backend.png)
@@ -56,12 +56,11 @@ Bibi 提供电商全栈解决方案，配合以下项目使用:
 商品管理界面
 ![](http://7xn6eu.com1.z0.glb.clouddn.com/Item%20Backend.png)
 
-**搭建环境**
+#### 搭建环境
 
 本教程基于Ubuntu/Debian，已安装python3 环境的请跳过
 
 ```bash
-
 # 安装python3环境
 sudo apt-get update
 sudo apt-get install python3-pip python3-dev
@@ -79,10 +78,13 @@ source ~/.bashrc
 mkvirtualenv bibi # bibi可随便改成你的项目名
 workon bibi # 现在已进入项目的独立环境
 
-# 安装 mongodb 略  (请安装mongodb 3.0以下版本)
+# 安装 mongodb 略  (请安装mongodb 2.6版本)
 # 安装 redis 略
 # 安装 rabbitMQ 略
 
+mongod &              # 启动mongodb
+redis-server &        # 启动redis
+rabbitmq-server &     # 启动RabbitMQ
 ```
 
 安装依赖
@@ -99,28 +101,30 @@ python3 manage.py shell
 # email, password, name改成你自己的
 >>> user.roles.append("ADMIN")
 >>> user.save()
-<User: 58d25726266b0451cc136c17>
-
 ```
 
 运行
 
 ```
+# 启动 celery
+celery -A application.cel worker -l info &
+
 python3 manage.py runserver
 ```
-本地可以打开 http://127.0.0.1:5000/
+本地可以打开 http://127.0.0.1:5000/admin/
 
 
-部署
+
+#### 部署方式
 ```bash
 # 安装 supervisor
 sudo apt-get install supervisor
 # 安装 gunicorn
 pip3 install gunicorn
-
-sudo vim /etc/supervisor/conf.d/bibi.conf
 ```
-bibi.conf代码
+创建supervisor配置
+
+`sudo vim /etc/supervisor/conf.d/bibi.conf`
 ```
 [program:bibi]
 command=/root/Env/bibi/bin/gunicorn
@@ -137,7 +141,10 @@ redirect_stderr=true
 ```
 PS: 上面 -w 为 开启workers数，公式：（系统内核数*2 + 1)
 
-nginx配置
+创建nginx配置
+
+`sudo vim /etc/nginx/sites-enabled/bibi.conf`
+
 ```nginx
 server {
     listen 80;
@@ -152,16 +159,12 @@ server {
   }
 ```
 
-接着启动celery, supervisor, nginx
+接着启动 supervisor, nginx
 ```bash
-celery -A application.cel worker -l info &
-
 sudo supervisorctl reload
 sudo supervisorctl start bibi
 
 sudo service nginx restart
-
-
 ```
 
 大功告成。
