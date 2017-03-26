@@ -4,7 +4,7 @@
 
 This project provides backend service, based on Flask, MongoDB, Redis, Celery, RabbitMQ, and supports Python 3.5.
 
-Bibi offers an all-in-one solution for use with the following:
+Bibi offers fullstack solution for use with the following:
 
 > [bibi-frontend](https://github.com/seasonstar/bibi-frontend) Mobile web frontend
 
