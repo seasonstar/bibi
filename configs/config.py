@@ -144,12 +144,12 @@ class BaseConfig(object):
     # Should be imported from env var.
     # https://bitbucket.org/danjac/flask-mail/issue/3/problem-with-gmails-smtp-server
     MAIL_DEBUG = False
-    MAIL_SERVER = 'smtp.maybi.cn'
+    MAIL_SERVER = ''
     #MAIL_PORT = 465
     MAIL_USE_TLS = False
     MAIL_USE_SSL = False
-    MAIL_USERNAME = 'notify@maybi.cn'
-    MAIL_PASSWORD = 'nP3XCe4wTPVra2Fh'
+    MAIL_USERNAME = ''
+    MAIL_PASSWORD = ''
     DEFAULT_MAIL_SENDER = MAIL_USERNAME
 
     # ===========================================
