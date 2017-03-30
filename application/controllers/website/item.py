@@ -48,7 +48,7 @@ def item_detail(item_id):
 
     item_dict = Json.item_json(item)
 
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         user = current_user._get_current_object()
     else:
         user = Models.GuestRecord.by_key(get_session_key())
@@ -60,7 +60,7 @@ def item_detail(item_id):
 
 @item.route('/favors', methods=['GET'])
 def favor_items():
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         user = current_user._get_current_object()
     else:
         # guest user
@@ -76,7 +76,7 @@ def favor_items():
 def item_favor(item_id):
     item = Models.Item.objects(item_id=item_id).first_or_404()
 
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         current_user.mark_favored(item)
     else:
         guest = Models.GuestRecord.by_key(get_session_key())
@@ -89,7 +89,7 @@ def item_favor(item_id):
 def item_unfavor(item_id):
     item = Models.Item.objects(item_id=item_id).first_or_404()
 
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         current_user.unmark_favored(item)
     else:
         guest = Models.GuestRecord.by_key(get_session_key())

@@ -28,7 +28,7 @@ def combine_favor_items(sender, user):
 
 
 def get_user_id_for_cart():
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         user_id = str(current_user.id)
         session_key = None
     else:
