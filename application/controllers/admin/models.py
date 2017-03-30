@@ -47,7 +47,6 @@ admin.add_view(MBModelView(Models.ForexRate, category='Inventory'))
 
 admin.add_view(MBModelView(Models.Payment, category='Order', endpoint="paymentmodel"))
 admin.add_view(MBModelView(Models.LogisticProvider, category='Logistics'))
-admin.add_view(MBModelView(Models.RealLogisticProvider, category='Logistics'))
 admin.add_view(MBModelView(Models.ChannelProvider, category='Logistics'))
 admin.add_view(MBModelView(Models.Partner, category='Logistics'))
 admin.add_view(MBModelView(Models.Order, category='Order'))

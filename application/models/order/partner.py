@@ -12,7 +12,7 @@ from configs.enum import PAYMENT_TYPE
 from application.extensions import db, bcrypt
 from application.utils import format_date
 
-__all__ = ['Partner', 'LogisticProvider', 'RealLogisticProvider', 'ChannelProvider']
+__all__ = ['Partner', 'LogisticProvider', 'ChannelProvider']
 
 
 class WeightPrice(object):
@@ -135,57 +135,6 @@ class Partner(db.Document):
             name=self.name)
         shipping = provider.get_shipping(weight)
         return shipping
-
-
-class RealLogisticProvider(db.Document, WeightPrice):
-    """
-    For real logistic calculation
-    """
-    meta = {
-        'db_alias': 'order_db'
-    }
-    name = db.StringField()
-    display_name = db.StringField()
-    description = db.StringField()
-    service_intro = db.DictField()
-    logo = db.StringField()
-    country = db.StringField()
-    is_active = db.BooleanField(default=False)
-
-    rule_desc = db.StringField()
-    init_price = db.FloatField(required=True)
-    init_weight = db.IntField(required=True)
-    continued_price = db.FloatField(required=True)
-    continued_weight = db.IntField(required=True)
-
-    features = db.ListField(db.StringField())
-    promotion = db.StringField(default='')
-
-    limited_weight = db.IntField(required=True)
-    limited_category = db.ListField(db.StringField())
-    is_recommended = db.BooleanField(default=False)
-
-    def __repr__(self):
-        return '<RealLogisticProvider {}>'.format(self.name)
-
-    # TODO: memoize here
-    @classmethod
-    def get_provider_shipping(cls, logistic_name, country, weight):
-        if not logistic_name:
-            logistic_name = 'default'
-        provider = cls.objects(name=logistic_name, country=country).first()
-        return provider.get_shipping(weight)
-
-    @queryset_manager
-    def active(doc_cls, queryset):
-        return queryset.filter(is_active=True)
-
-    def to_json(self):
-        return dict(
-            name = self.name,
-            display_name = self.display_name,
-            service_intro = self.service_intro,
-            desc = self.description)
 
 
 class ChannelProvider(db.Document):
