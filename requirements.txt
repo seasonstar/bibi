@@ -48,7 +48,6 @@ qrcode==5.3
 redis==2.10.5
 requests==2.13.0
 six==1.10.0
-socialoauth==0.3.3
 -e git+https://github.com/seasonstar/social-oauth.git@master#egg=socialoauth
 ua-parser==0.7.3
 user-agents==1.1.0
