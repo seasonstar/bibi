@@ -1,6 +1,6 @@
 ## Bibi
 
-**Bibi** is an e-commerce fullstack solution built with Flask, it includes e-commerce, social, and hot common modules. It stood the test of business operations, is a light but complete solution.
+**Bibi** is an e-commerce fullstack solution built with Flask. It includes e-commerce, social, and hot common modules. It stood the test of business operations, is a light but complete solution.
 
 This project provides backend service, based on Flask, MongoDB, Redis, Celery, RabbitMQ, and supports Python 3.5.
 
@@ -17,7 +17,7 @@ Bibi offers fullstack solution for use with the following:
 **Features**：
 
 - [x] User
-    - [x] Support Email, Wechat, Weibo, QQ, and Facebook Oauth，[social-oauth](https://github.com/seasonstar/social-oauth) for details
+    - [x] Supports Email, Wechat, Weibo, QQ, and Facebook Oauth，[social-oauth](https://github.com/seasonstar/social-oauth) for details
     - [x] User Information, Address, Contact, Favor collections and etc..
 - [x] Social
     - [x] Post, like, comment, and bad information report.
@@ -39,13 +39,13 @@ Bibi offers fullstack solution for use with the following:
     - [x] Third party logistics business parcel handling
 - [x] Payment
     - [x] Supports Wechat，Paypal and etc..
-    - [x] Support the relief of coupons, coins.
+    - [x] Supports coupons, coins for discount.
 - [x] Management System
 
 - [x] AWS file upload
 - [x] Bing translate API
 - [x] Openexchange rate API
-- [x] kuaidi100 logistics tracking API
+- [x] Kuaidi100 logistics tracking API
 
 
 #### Screenshot
@@ -167,11 +167,11 @@ sudo supervisorctl start bibi
 sudo service nginx restart
 ```
 
-Bravo! You're done.
+Bravo! It's done.
 
-Please post issue if you have any questions.
+Please open issues if you have problems.
 
-
+-----------------------------------
 #### License
 
 Apache-2.0
